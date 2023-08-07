@@ -1,0 +1,104 @@
+@import '@/app/main';
+
+.wrapper {
+    width: 100%;
+    z-index: $header;
+    background-color: white;
+    position: fixed;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    height: $headerHeight;
+    border-bottom: 1px solid $lightGrey;
+}
+
+.logo {
+    // font-size: $averageFont;
+    // font-weight: 500;
+    // text-decoration: none;
+    display: flex;
+    margin-right: 30px;
+}
+
+.logoIcon {
+    height: 40px;
+    width: auto;
+}
+
+.search {
+    // flex: 1;
+    all: unset;
+    height: 30px;
+    background-color: $lightGrey;
+    border-radius: 15px;
+    padding: 0 15px;
+    box-sizing: border-box;
+
+    font-size: $smallFont;
+    width: 100%;
+    max-width: 400px;
+}
+
+.side {
+    display: flex;
+    align-items: center;
+
+    &:first-child {
+        flex: 1;
+        margin-right: 30px;
+    }
+}
+
+.navLink {
+    position: relative;
+    text-decoration: none;
+
+    display: flex;
+    align-items: center;
+    
+    margin-right: 15px;
+    
+    height: 30px;
+    border: .5px solid $someGrey;
+    border-radius: 15px;
+    padding: 0 10px;
+
+    &.active {
+        background-color: $someGrey;
+    }
+}
+
+.navIcon {
+    width: 16px;
+    height: auto;
+    margin-right: 6px;
+}
+
+.navTitle {
+    // all: unset;
+    font-size: $smallFont;
+
+}
+
+.notification {
+    position: absolute;
+    font-size: 10px;
+    right: -5px;
+    top: -5px;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background-color: red;
+    color: white;
+    font-weight: 700;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: .2px;
+
+    &.active {
+        display: flex;
+    }
+}

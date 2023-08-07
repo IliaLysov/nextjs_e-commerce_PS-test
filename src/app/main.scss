@@ -1,0 +1,45 @@
+//colors
+$main: #508F00;
+// $second: #4d3223;
+$second: #53595A;
+// $second: #4C5B5D;
+$graphite: #484848;
+$grey: #A1A1A1;
+$someGrey: #DEDEDE;
+$lightGrey: #eaeaea;
+
+//transparent
+$lightGreyTransparent: rgba(189, 189, 189, 0.5);
+
+
+//fonts
+$smallFont: 12px;
+$littleFont: 16px;
+$commonFont: 20px;
+$averageFont: 24px;
+$middleFont: 32px;
+$largeFont: 48px;
+
+//z-indexes
+$modal: 1000;
+$header: 900;
+
+//rediuses
+$standartBorderRadius: 5px;
+
+//breakpoints
+$desktop1650: 1650px;
+$desktop1350: 1350px;
+$desktop1100: 1100px;
+$tablets850: 850px;
+$phones600: 600px;
+
+//quantities
+$headerHeight: 60px;
+
+@import "./media.scss";
+
+:export {
+    main: $main;
+    second: $second;
+}

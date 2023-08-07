@@ -1,0 +1,29 @@
+@mixin desktop1650 {
+    @media screen and (max-width:$desktop1650) {
+        @content;
+    }
+}
+
+@mixin desktop1350 {
+    @media screen and (max-width:$desktop1350) {
+        @content;
+    }
+}
+
+@mixin desktop1100 {
+    @media screen and (max-width:$desktop1100) {
+        @content;
+    }
+}
+
+@mixin tablets850 {
+    @media screen and (max-width:$tablets850) {
+        @content;
+    }
+}
+
+@mixin phones600 {
+    @media screen and (max-width:$phones600) {
+        @content;
+    }
+}
