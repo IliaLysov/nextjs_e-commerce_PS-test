@@ -5,7 +5,7 @@ import {
 } from "next/server";
 
 const allowedOrigins = process.env.NODE_ENV === "production" 
-    ? ['https://www.plant-store.ru', 'https://plant-store.ru']
+    ? ['https://www.plant-store.ru', 'https://plant-store.ru', process.env.MAIN_URL]
     : ['http://localhost:3000']
 
 
