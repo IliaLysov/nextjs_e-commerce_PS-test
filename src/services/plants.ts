@@ -24,6 +24,7 @@ export default class PlantsService {
             method: 'POST',
             body: JSON.stringify(params)
         })
+        console.log('getAll response', response)
         return await response.json()
     }
 }

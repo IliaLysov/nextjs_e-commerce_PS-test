@@ -40,7 +40,7 @@ export async function POST(request: Request) {
         } else if (products) {
             return NextResponse.json(products)
         } else if (filters) {
-            return NextResponse.json(products)
+            return NextResponse.json(filters)
         }
         return NextResponse.json('something went wrong')
 
