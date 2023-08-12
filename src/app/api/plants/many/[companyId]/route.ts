@@ -50,7 +50,9 @@ export async function POST(request: Request, {params: { companyId }}: Props) {
 
         return NextResponse.json({products, filters})
 
-    } catch (e: any) {
-        console.log(e)
+    } catch (error: any) {
+        return NextResponse.json({error: error.message}, {
+            status: 500
+        })
     }
 }
