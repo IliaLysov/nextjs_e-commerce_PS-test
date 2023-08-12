@@ -1,0 +1,36 @@
+@import '@/app/main';
+
+.wrapper {
+    border: .5px solid $someGrey;
+    border-radius: 15px;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+}
+
+.title {
+    font-size: $littleFont;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.counts {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.input {
+    all: unset;
+    text-align: center;
+    border: .5px solid $someGrey;
+    width: 80px;
+    height: 20px;
+    border-radius: 10px;
+    font-size: $smallFont;
+    color: $grey;
+    padding: 0;
+
+    &:focus {
+        color: black;
+    }
+}

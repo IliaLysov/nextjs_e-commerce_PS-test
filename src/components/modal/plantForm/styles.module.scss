@@ -1,0 +1,188 @@
+@import '@/app/main';
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.formContainer {
+    display: flex;
+}
+
+.leftSide {
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+    width: 400px;
+}
+
+.rightSide {
+    display: flex;
+    flex-direction: column;
+    width: 700px;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: white;
+    border-radius: $standartBorderRadius;
+    border: 1px solid $grey;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.sectionTitle {
+    font-size: $commonFont;
+    font-weight: 500;
+    color: $grey;
+    margin-bottom: 14px;
+}
+
+.block {
+    width: 100%;
+    position: relative;
+    padding: 15px;
+    border: 1px solid $grey;
+    border-radius: $standartBorderRadius;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 14px;
+
+    &:last-child {
+        margin: 0;
+    }
+}
+
+.blockTitle {
+    position: absolute;
+    padding: 0 10px;
+    top: -10px;
+    font-size: $littleFont;
+    color: $grey;
+    background-color: white;
+
+}
+
+.horizon {
+    display: flex;
+    margin-bottom: 14px;
+    width: 100%;
+
+    &:last-child{
+        margin: 0;
+    }
+}
+
+.inputWrapper {
+    width: 100%;
+    margin-right: 20px;
+
+    &:last-child {
+        margin: 0;
+    }
+}
+
+.fileInputWrapper {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    margin-bottom: 14px;
+
+    & label {
+        cursor: pointer;
+        color: white;
+        font-weight: 500;
+        background-color: $grey;
+        padding: 6px 10px;
+        border-radius: 5px;
+        margin-right: 10px;
+        // width: 100px;
+        text-align: center;
+    }
+
+    & input {
+        display: none;
+    }
+
+    & div {
+        color: $grey;
+    }
+}
+
+.uploadedImgWrapper {
+    position: relative;
+    height: 40px;
+    width: 40px;
+    margin-right: 6px;
+    &:last-child {
+        margin: 0;
+    }
+}
+
+.uploadedImg {
+    border-radius: 5px;
+    height: 100%;
+}
+
+.imageDeleteBtn {
+    position: absolute;
+    background-color: red;
+    height: 14px;
+    width: 14px;
+    top: -3px;
+    right: -3px;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.rightSideBottom {
+    display: flex;
+    height: 100%;
+}
+
+
+.submitBtn {
+    width: 100%;
+    background-color: $graphite;
+    text-align: center;
+    color: white;
+    font-weight: 700;
+    font-size: $commonFont;
+    height: 100%;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: box-shadow .3s;
+    &:hover {
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+    }
+}
+
+.deleteBtn {
+    width: 100%;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: red;
+    margin-right: 20px;
+    color: white;
+    font-weight: 700;
+    font-size: $commonFont;
+    transition: box-shadow .3s;
+    cursor: pointer;
+
+    &:hover {
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+    }
+}

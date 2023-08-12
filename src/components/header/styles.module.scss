@@ -12,6 +12,30 @@
     padding: 0 40px;
     height: $headerHeight;
     border-bottom: 1px solid $lightGrey;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+
+    &.bottom {
+        display: none;
+    }
+
+    @include phones600 {
+
+        &.top {
+            display: none;
+        }
+        &.bottom {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            top: unset;
+            bottom: 0;
+            border-top: 1px solid $lightGrey;
+            border-bottom: none;
+            padding: 0 10px;
+        }
+
+
+    }
+
 }
 
 .logo {
@@ -20,11 +44,26 @@
     // text-decoration: none;
     display: flex;
     margin-right: 30px;
+
+    @include phones600 {
+        margin-right: 0;
+        justify-content: center;
+        padding-bottom: 5px;
+        &.active {
+            & .logoIcon {
+                fill: $main;
+            }
+        }
+    }
 }
 
 .logoIcon {
     height: 40px;
     width: auto;
+    fill: $main;
+    @include phones600 {
+        fill: $grey;
+    }
 }
 
 .search {
@@ -47,7 +86,7 @@
 
     &:first-child {
         flex: 1;
-        margin-right: 30px;
+        margin-right: 15px;
     }
 }
 
@@ -67,19 +106,58 @@
 
     &.active {
         background-color: $someGrey;
+        @include phones600 {
+            // background-color: $lightGrey;
+
+            & .navIcon {
+                stroke: $graphite;
+            }
+
+            & .navTitle {
+                color: $graphite;
+            }
+        }
+    }
+
+    @include phones600 {
+        border: none;
+        height: 50px;
+        flex-direction: column;
+        margin-right: 0;
+        justify-content: center;
     }
 }
 
 .navIcon {
     width: 16px;
     height: auto;
-    margin-right: 6px;
+    stroke-width: 2;
+    stroke: $graphite;
+    fill: none;
+    
+
+    @include phones600 {
+        stroke: $grey;
+        width: 24px;
+        margin-bottom: 3px;
+    }
 }
 
 .navTitle {
     // all: unset;
+    margin-left: 6px;
     font-size: $smallFont;
 
+    @include tablets850 {
+        display: none;
+        margin-left: 0;
+    }
+
+    @include phones600 {
+        display: block;
+        font-weight: 500;
+        color: $grey;
+    }
 }
 
 .notification {
@@ -100,5 +178,93 @@
 
     &.active {
         display: flex;
+    }
+
+    @include phones600 {
+        top: 15%;
+        right: 38%;
+        transform: translate(50%, -50%);
+    }
+}
+
+.user {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 30px;
+    min-width: 30px;
+    border-radius: 15px;
+    background-color: $lightGrey;
+    cursor: pointer;
+
+    @include phones600 {
+        height: 50px;
+        flex-direction: column;
+        justify-content: center;
+        background-color: unset;
+    }
+}
+
+.avatar {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    border: .5px solid $someGrey;
+    background-color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: $littleFont;
+    font-weight: 700;
+
+    @include phones600 {
+        border: 1.3px solid black;
+        height: 24px;
+        width: 24px;
+        margin-bottom: 3px;
+    }
+}
+
+.userName {
+    margin-right: 15px;
+    margin-left: 10px;
+    width: fit-content;
+    font-size: $smallFont;
+    white-space: nowrap;
+
+    @include phones600 {
+        font-weight: 500;
+        color: $grey;
+    }
+}
+
+
+
+.menu {
+    display: none;
+    position: absolute;
+    background-color: white;
+    right: 0;
+    top: 40px;
+    padding: 5px 0;
+    border-radius: $standartBorderRadius;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    &.active {
+        display: block;
+    }
+}
+
+
+.menuItem {
+    display: block;
+    padding: 15px 20px;
+    cursor: pointer;
+    user-select: none;
+    text-decoration: none;
+
+    &:hover {
+        background-color: $lightGrey;
     }
 }

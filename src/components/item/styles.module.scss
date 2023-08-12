@@ -1,0 +1,227 @@
+@import '@/app/main';
+
+.wrapper {
+    position: relative;
+    border-radius: 15px;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+    transition: box-shadow .3s;
+    border: 0.5px solid $someGrey;
+    
+    height: 100%;
+
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1)
+        }
+    }
+}
+
+.content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &.owner {
+        cursor: pointer;
+    }
+}
+
+.imageWrapper {
+    position: relative;
+    display: flex;
+    width: 100%;
+    margin-bottom: 25px;
+    z-index: 100;
+}
+
+.image {
+    width: 100%;
+}
+
+.favorite {
+    position: absolute;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    background-color: white;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform .3s;
+
+    // &:hover {
+    //     transform: scale(120%);
+    // }
+
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            transform: scale(120%);
+        }
+    }
+}
+
+.like {
+    width: 16px;
+    height: auto;
+    fill: none;
+    stroke: $graphite;
+    stroke-width: 2px;
+
+    &.active {
+        fill: red;
+        stroke: red;
+    }
+}
+
+.sellerAvatarWrapper {
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    height: 50px;
+    width: 50px;
+    border-radius: 25px;
+    // overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sellerAvatar {
+    height: 44px;
+    width: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+    // border: .5px solid white;
+    transition: box-shadow .3s;
+
+    &:hover {
+        // border: .5px solid black;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4)
+    }
+}
+
+.sellerFirstLetter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 44px;
+    width: 44px;
+    border-radius: 50%;
+    border: .5px solid $someGrey;
+    font-size: $averageFont;
+    font-weight: 700;
+    color: $grey;
+    cursor: pointer;
+    transition: box-shadow .3s;
+
+    &:hover {
+        // border: .5px solid black;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4)
+    }
+}
+
+.name {
+    font-size: $littleFont;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.seller {
+    font-size: $smallFont;
+    color: $grey;
+    font-weight: 500;
+}
+
+.orderWrapper {
+    position: relative;
+    margin-top: 20px;
+    display: flex;
+    border: 0.5px solid $main;
+    justify-content: space-between;
+    font-size: $smallFont;
+    height: 30px;
+    border-radius: 15px;
+    width: 100%;
+    font-weight: 700;
+    transition: border-color .3s;
+
+    &.pending {
+        & .button {
+            &::before {
+                width: 100%;
+            }
+        }
+    }
+    
+    &.active {
+        border: 0.5px solid $second;
+
+        cursor: pointer;
+        & .button {
+            &::before {
+                content: 'Убрать из корзины';
+                width: 100%;
+                background-color: $second;
+            }
+        }
+    }
+}
+
+.price {
+    font-weight: 700;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button {
+    all: unset;
+    color: white;
+    height: 100%;
+    width: 150px;
+    text-align: center;
+    cursor: pointer;
+
+    @media (hover: hover) and (pointer: fine) {
+        &:hover::before {
+            width: 100%;
+        }
+    }
+
+    @media (hover: none) and (pointer: coarse) {
+        &::before {
+            width: 150px;
+        }
+    }
+    
+    &::before {
+        transition: width .3s, background-color .3s;
+        content: 'Добавить в корзину';
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 100%;
+        width: 150px;
+        border-radius: 15px;
+        background-color: $main;
+
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-bottom: 1px;
+    }
+}

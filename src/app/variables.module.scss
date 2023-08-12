@@ -1,0 +1,42 @@
+//colors
+$main: #508F00;
+$second: #53595A;
+$graphite: #484848;
+$grey: #A1A1A1;
+$someGrey: #DEDEDE;
+$lightGrey: #eaeaea;
+
+
+//fonts
+$smallFont: 12px;
+$littleFont: 16px;
+$commonFont: 20px;
+$averageFont: 24px;
+$middleFont: 32px;
+$largeFont: 48px;
+
+//breakpoints
+$desktop1650: 1650px;
+$desktop1350: 1350px;
+$desktop1100: 1100px;
+$tablets850: 850px;
+$phones600: 600px;
+
+:export {
+    main: $main;
+    second: $second;
+
+
+    smallFont: 12;
+    littleFont: 16;
+    commonFont: 20;
+    averageFont: 24;
+    middleFont: 32;
+    largeFont: 48;
+
+    desktop1650: 1650;
+    desktop1350: 1350;
+    desktop1100: 1100;
+    tablets850: 850;
+    phones600: 600;
+}

@@ -1,3 +1,6 @@
+import { CartDBItemInterface } from "@/types/cart"
+import { CompanyInterface } from "@/types/company"
+import { FavoritesDBItemInterface } from "@/types/favorites"
 import NextAuth from "next-auth/next"
 
 declare module "next-auth" {
@@ -8,6 +11,9 @@ declare module "next-auth" {
             name: string,
             email: string,
             image: string
-        }
+        },
+        company: CompanyInterface | null,
+        cart: CartDBItemInterface[] | null,
+        favorites: FavoritesDBItemInterface[] | null
     }
 }

@@ -1,0 +1,158 @@
+@import '@/app/main';
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container {
+    margin-bottom: 15px;
+}
+
+.form {
+    width: 440px;
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.top {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.block {
+    flex: 1;
+    margin-right: 30px;
+
+    &:last-child {
+        margin-right: 0;
+    }
+}
+
+.inputFile {
+    display: none;
+}
+
+.logo {
+    position: relative;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+    
+}
+
+.logoLabel {
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid $grey;
+    &:hover {
+        border: 3px solid $main;
+    }
+
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.uploadedImg {
+    height: 100%;
+    width: 100%;
+}
+
+.imageDeleteBtn {
+    position: absolute;
+    background-color: red;
+    height: 20px;
+    width: 20px;
+    top: 2px;
+    right: 2px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform .3s;
+
+    &:hover {
+        transform: scale(120%);
+    }
+}
+
+.logoText {
+    user-select: none;
+
+    text-align: center;
+    font-size: $smallFont;
+}
+
+.uploadErrors {
+    font-size: $smallFont;
+    color: red;
+    margin-bottom: 20px;
+}
+
+.horizon {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.contactsDescriptioon {
+    font-size: $smallFont;
+    width: 200px;
+    margin-right: 20px;
+}
+
+.input {
+    margin-bottom: 20px;
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.submitBtn {
+    height: 30px;
+    width: 100%;
+    border-radius: 15px;
+    border: none;
+    font-weight: 700;
+    border: .5px solid $grey;
+    background: none;
+    // margin-bottom: 15px;
+    transition: background-color .3s, color .3s;
+    padding-bottom: 2px;
+    user-select: unset;
+    
+    color: $grey;
+    background-color: white;
+    
+    &.disable {
+        cursor: pointer;
+        background-color: $main;
+        color: white;
+        
+        &:hover {
+            background-color: $second;
+        }
+    }
+}
+
+.error {
+    font-size: $smallFont;
+    color: red;
+    text-align: center;
+    margin-bottom: 10px;
+}

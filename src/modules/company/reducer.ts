@@ -1,16 +1,25 @@
 import {createReducer, combineReducers} from '@reduxjs/toolkit'
-import { setCompany } from './actions'
+import { setCompanyFormError } from './actions'
 import { RootState } from '@/app/store'
+import { CompanyInterface } from '@/types/company'
 
-const company = createReducer('some string', (builder) => {
-    builder.addCase(setCompany, (state, {payload}) => payload)
+// const ownCompany = createReducer<CompanyInterface | null>(null, (builder) => {
+//     builder.addCase(setOwnCompany, (state, {payload}) => payload)
+// })
+
+const companyFormError = createReducer<string>('', (builder) => {
+    builder.addCase(setCompanyFormError, (state, {payload}) => payload)
 })
-
 
 export default combineReducers({
-    company
+    // ownCompany,
+    companyFormError
 })
 
-const companySelector = (state: RootState) => state.rootReducer.company.company
+// const ownCompanySelector = (state: RootState) => state.rootReducer.company.ownCompany
+const companyFormErrorSelector = (state: RootState) => state.rootReducer.company.companyFormError
 
-export {companySelector}
+export {
+    // ownCompanySelector,
+    companyFormErrorSelector
+}

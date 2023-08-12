@@ -1,19 +1,21 @@
-import { NextResponse } from 'next/server'
+import { getToken } from "next-auth/jwt";
+import {
+  NextRequest,
+  NextResponse,
+} from "next/server";
 
 const allowedOrigins = process.env.NODE_ENV === "production" 
     ? ['https://www.plant-store.ru', 'https://plant-store.ru']
     : ['http://localhost:3000']
 
-//auth apply---------
-// export {default} from 'next-auth/middleware'
-// export const config = {matcher: ['/catalog', '/dashboard']}
-//-------------------
 
-export function middleware(request: Request) {
+const requireAuth: string[] = ["/admin", "/account"];
+// const requireAdmin: string[] = ["/admin"]
 
-    const origin = request.headers.get('origin')
-    console.log('origin', origin)
+export async function middleware(request: NextRequest) {
 
+    const origin = request.headers.get('origin') //не работает для localhost
+        
     if (origin && !allowedOrigins.includes(origin)) { //добавить  (origin && !allowedOrigins.includes(origin) || !origin) для запрета доступа с рессурсов без адреса
         return new NextResponse(null, {
             status: 400,
@@ -27,16 +29,24 @@ export function middleware(request: Request) {
     // const regex = new RegExp('/api/*')
 
     // if (regex.test(request.url)) {
-         
+    //     console.log(request)
     // }
 
-    console.log('Middleware')
-    
-    console.log(request.method)
-    console.log(request.url)
-    
-    
-    
-    return NextResponse.next()
+    const pathname = request.nextUrl.pathname;
+    if (requireAuth.some((path) => pathname.startsWith(path))) {
+        const token = await getToken({
+            req: request,
+            secret: process.env.NEXTAUTH_SECRET,
+        });
+        if (!token) {
+            const url = new URL(`/api/auth/signin`, request.url);
+            url.searchParams.set("callbackUrl", encodeURI(request.url));
+            return NextResponse.redirect(url);
+        }
+        // if (token.role !== "admin") {
+        //     const url = new URL(`/403`, request.url);
+        //     return NextResponse.rewrite(url);
+        // }
+    }
+    return NextResponse.next();
 }
-

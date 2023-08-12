@@ -1,0 +1,24 @@
+@import '@/app/main';
+
+.wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: $modal;
+    background-color: $lightGreyTransparent;
+    backdrop-filter: blur(5px);
+}
+
+.content {
+    background-color: white;
+    padding: 40px;
+    border-radius: 15px;
+
+    // overflow-x:scroll;
+}

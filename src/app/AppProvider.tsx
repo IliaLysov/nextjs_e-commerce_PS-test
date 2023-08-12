@@ -3,6 +3,9 @@
 import { SessionProvider } from "next-auth/react"
 import { Provider } from "react-redux"
 import { store } from "@/app/store"
+import { ThemeProvider } from '@mui/material'
+import theme from '@/app/muiTheme'
+
 
 function AppProvider({children}: {
     children: React.ReactNode,
@@ -11,7 +14,9 @@ function AppProvider({children}: {
     return (
         <SessionProvider>
             <Provider store={store}>
-                {children}
+                <ThemeProvider theme={theme}>
+                    {children}
+                </ThemeProvider>
             </Provider>
         </SessionProvider>
     )

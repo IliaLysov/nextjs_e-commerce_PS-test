@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import AppProvider from './AppProvider'
 
-import { Header } from '@/components'
+import { Header, ModalWindow } from '@/components'
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -26,6 +26,7 @@ export default function RootLayout({
           <main>
             {children}
           </main>
+          <ModalWindow/>
         </AppProvider>
       </body>
     </html>

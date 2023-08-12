@@ -1,0 +1,52 @@
+@import '@/app/main';
+
+
+
+.container {
+    padding-right: 30px;
+    width: 250px;
+    // flex: 1;
+    @include phones600 {
+        padding-right: 0;
+        min-width: 250px;
+        width: 100%;
+    }
+}
+
+.filterBtn {
+    all: unset;
+    width: 100%;
+    height: 30px;
+    border-radius: 15px;
+    color: white;
+    box-sizing: border-box;
+    padding-bottom: 1px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: 700;
+    font-size: $smallFont;
+
+    border: .5px solid $someGrey;
+
+    
+    margin-bottom: 10px;
+    color: $someGrey;
+    
+    
+    &.active {
+        cursor: pointer;
+        background-color: black;
+        border: .5px solid black;
+        color: white;
+    }
+}
+
+.message {
+    text-align: center;
+    font-weight: 600;
+    font-size: $commonFont;
+    color: $grey;
+}

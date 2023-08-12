@@ -1,0 +1,69 @@
+@import '@/app/main';
+
+
+.wrapper {
+    padding-top: 40px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.items {
+    max-width: 600px;
+    display: grid;
+    grid-template-columns: [col-start] repeat(2, 1fr) [col-end];
+    grid-auto-rows: minmax(120px, auto);
+    gap: 20px;
+
+    @include phones600 {
+        grid-template-columns: [col-start] repeat(1, 1fr) [col-end];
+    }
+}
+
+.item {
+    text-decoration: none;
+    border: 0.5px solid $someGrey;
+    border-radius: $standartBorderRadius;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: box-shadow .3s;
+    padding: 20px;
+
+
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1)
+        }
+    }
+
+    &.blocked {
+        & .itemTitle {
+            color: $grey;
+        }
+        cursor: default;
+        &:hover {
+            box-shadow: none;
+        }
+    }
+}
+
+.itemTitle {
+    font-size: $littleFont;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.itemDescripton {
+    font-size: $smallFont;
+    color: $grey;
+    margin-bottom: 10px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+    &.blocked {
+        color: red;
+    }
+}

@@ -2,17 +2,18 @@ export enum ModalTypeEnum {
     LogIn = 'LOGIN',
     Registration = 'REGISTRATION',
     Loading = 'LOADING',
-    ItemForm = 'ITEM_FORM',
+    PlantForm = 'PLANT_FORM',
     Success = 'SUCCESS',
     Error = 'ERROR',
-    OrganizationRegistration = 'ORGANIZATION_REGISTRATION'
+    CompanyRegistration = 'COMPANY_REGISTRATION',
+    Filters = 'FILTERS',
 }
 
 export type ModalType = ModalTypeEnum[keyof ModalTypeEnum]
 
 
 export interface ModalInterface {
-    type: ModalType | null,
+    type: ModalType,
     data?: any
 }
 
