@@ -32,6 +32,7 @@ async function dbConnect() {
     };
 
     cached.promise = connect(MONGODB_URI!, opts).then((mongoose) => {
+      console.log('db promise connect', mongoose)
       return mongoose;
     });
   }
@@ -40,6 +41,7 @@ async function dbConnect() {
     cached.conn = await cached.promise;
   } catch (e) {
     cached.promise = null;
+    console.log('db error', e)
     throw e;
   }
 
