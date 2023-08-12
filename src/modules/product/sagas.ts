@@ -43,6 +43,7 @@ function* ownProductsGetSaga(action: ReturnType<typeof ownProductsGet>): Generat
     try {
         const {skip, appliedFilters, sort, organizationId} = action.payload
         const response: any = yield call(PlantsService.getOwn, {params: {skip, appliedFilters, sort}, organizationId})
+        console.log('ownProductsGetSaga', response)
         const plants: PlantInterface[] = response.products
         const filters: FiltersInterface = response.filters
         yield put(setProducts(plants))
@@ -59,6 +60,7 @@ function* allProductsGetSaga(action: ReturnType<typeof ownProductsGet>): Generat
     try {
         const {skip, appliedFilters, sort} = action.payload
         const response: any = yield call(PlantsService.getAll, action.payload)
+        console.log('allProductsGetSaga', response)
         const plants: PlantInterface[] = response.products
         const filters: FiltersInterface = response.filters
         yield put(setProducts(plants))
@@ -67,7 +69,7 @@ function* allProductsGetSaga(action: ReturnType<typeof ownProductsGet>): Generat
             yield put(setAppliedFilters(appliedFilters))
         }
     } catch (e: any) {
-        console.log('product ownProductsGetSaga', e)
+        console.log('product allProductsGetSaga', e)
     }
 }
 
