@@ -26,7 +26,7 @@ export default function Filters({filters, newFilters, setNewFilters, update, app
                 {/* {!newFilterComparison && <button className={[styles.filterBtn, !newFilterComparison && styles.active].join(' ')} onClick={() => update()}>Применить фильтр</button>}
                 {!filterComparison && <button className={[styles.filterBtn, !filterComparison && styles.active].join(' ')} onClick={() => resetFilters()}>Сбросить фильтр</button>} */}
                 <button className={[styles.filterBtn, !newFilterComparison && styles.active].join(' ')} onClick={() => !newFilterComparison && update()}>Применить фильтр</button>
-                <button className={[styles.filterBtn, !filterComparison && styles.active].join(' ')} onClick={() => !filterComparison && resetFilters()}>Сбросить фильтр</button>
+                <button className={[styles.filterBtn, styles.resetBtn, !filterComparison && styles.active].join(' ')} onClick={() => !filterComparison && resetFilters()}>Сбросить фильтр</button>
             </>
             :
                 <p className={styles.message}>Нет фильтров</p>

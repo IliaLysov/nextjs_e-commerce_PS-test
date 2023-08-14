@@ -17,6 +17,8 @@
     grid-auto-rows: minmax(120px, auto);
     gap: 20px;
 
+    margin-bottom: 100px;
+
     @include phones600 {
         grid-template-columns: [col-start] repeat(1, 1fr) [col-end];
     }
@@ -24,12 +26,13 @@
 
 .item {
     text-decoration: none;
-    border: 0.5px solid $someGrey;
+    border: 1px solid $someGrey;
     border-radius: $standartBorderRadius;
     border-radius: 15px;
     cursor: pointer;
     transition: box-shadow .3s;
     padding: 20px;
+    
 
 
     @media (hover: hover) and (pointer: fine) {

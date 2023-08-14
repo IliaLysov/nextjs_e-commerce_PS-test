@@ -6,7 +6,6 @@ import dbConnect from "@/lib/dbConnect"
 export async function POST(request: Request) {
     try {
         await dbConnect()
-        console.log('db is ready')
         const {skip, appliedFilters, sort} = await request.json()
         const filter = []
 
@@ -15,7 +14,6 @@ export async function POST(request: Request) {
         const products = await PlantSchema.find(appliedFilters ? {
             $and: filter
         } : {}).limit(10).skip(skip)
-        console.log('products', products)
 
         const body = [
             {
@@ -35,15 +33,7 @@ export async function POST(request: Request) {
         {
             price: {min: aggregate[0].minPrice, max: aggregate[0].maxPrice}
         }
-        if (products && filters) {
-            return NextResponse.json({products, filters})
-        } else if (products) {
-            return NextResponse.json(products)
-        } else if (filters) {
-            return NextResponse.json(filters)
-        }
-        return NextResponse.json('something went wrong')
-
+        return NextResponse.json({products, filters})
     } catch (error: any) {
         console.log(error)
         return NextResponse.json(error)

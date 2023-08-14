@@ -25,7 +25,6 @@ import { cartSelector, favoritesSelector, setCart, setFavorites } from '@/module
 export default function Header() {
     const dispatch = useAppDispatch()
     const {data: session} = useSession()
-    console.log(session)
     
     const cart = useAppSelector(cartSelector)
     const favorites = useAppSelector(favoritesSelector)
@@ -78,16 +77,16 @@ export default function Header() {
                         <div className={styles.navTitle}>Корзина</div>
                         <div className={[styles.notification, cart.length > 0 && styles.active].join(' ')}>{cart.length}</div>
                     </Link>
-                    <div className={styles.user} onClick={() => setMenu(prev => !prev)} ref={userRef} >
+                    <div className={[styles.navLink, session?.user.image && styles.userLink, pathname.endsWith('account') && styles.active].join(' ')} onClick={() => setMenu(prev => !prev)} ref={userRef} >
                         {session ?
                             session.user.image ?
-                            <img src={session.user.image} alt="avatar" className={[styles.avatar, styles.img].join(' ')}/>
+                            <img src={session.user.image} alt="avatar" className={[styles.navIcon, styles.user].join(' ')}/>
                             :
-                            <div className={[styles.avatar, styles.text].join(' ')}>{session?.user.email.charAt(0)}</div>
+                            <UserSVG className={styles.navIcon} />
                             :
-                            <Image src={userImg} alt="user" height='30' width='30' priority={true} loading='eager' className={[styles.avatar, styles.img].join(' ')}/>
+                            <UserSVG className={styles.navIcon} />
                         }
-                        {(session?.user.name || session?.user.email) && <div className={styles.userName}>{session.user.name || session.user.email}</div>}
+                        <div className={styles.navTitle}>{session?.user.name || session?.user.email || 'Войти'}</div>
                         <div className={[styles.menu, menu && styles.active].join(' ')} ref={menuRef}>
                             {session ?
                                 <>

@@ -36,6 +36,7 @@ export default function Account() {
                     {!ownCompany.approved && <p className={[styles.itemDescripton, styles.blocked].join(' ')}>{`Доступ откроется после завершения регистрации питомника ${ownCompany?.name}`}</p>}
                 </Link>}
             </div>
+            <Link href='/api/auth/signout' className={styles.signOut}>Выйти</Link>
         </div>
     )
 }

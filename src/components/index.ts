@@ -2,6 +2,6 @@ import Header from './header'
 import ModalWindow from './modal'
 import Filters from './filters'
 import Items from './items'
-import Item from './item'
+import {PlantCatalogItemTile, PlantCatalogItemHorizon, PlantCompanyItemTile, PlantCompanyItemHorizon} from './item'
 
-export {Header, ModalWindow, Filters, Items, Item}
+export {Header, ModalWindow, Filters, Items, PlantCatalogItemTile, PlantCatalogItemHorizon, PlantCompanyItemTile, PlantCompanyItemHorizon}

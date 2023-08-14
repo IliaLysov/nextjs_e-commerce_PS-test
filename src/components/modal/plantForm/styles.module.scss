@@ -3,15 +3,23 @@
 .form {
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
 .title {
     text-align: center;
     margin-bottom: 20px;
+    @include tablets850 {
+        font-size: $commonFont;
+    }
 }
 
 .formContainer {
     display: flex;
+
+    @include tablets850 {
+        flex-direction: column;
+    }
 }
 
 .leftSide {
@@ -19,12 +27,21 @@
     flex-direction: column;
     margin-right: 20px;
     width: 400px;
+
+    @include tablets850 {
+        width: 100%;
+        margin-bottom: 20px;
+    }
 }
 
 .rightSide {
     display: flex;
     flex-direction: column;
     width: 700px;
+
+    @include tablets850 {
+        width: 100%;
+    }
 }
 
 .section {
@@ -79,6 +96,10 @@
     margin-bottom: 14px;
     width: 100%;
 
+    @include tablets850 {
+        flex-direction: column;
+    }
+
     &:last-child{
         margin: 0;
     }
@@ -90,6 +111,10 @@
 
     &:last-child {
         margin: 0;
+    }
+
+    @include tablets850 {
+        margin-bottom: 20px;
     }
 }
 
@@ -153,22 +178,29 @@
 
 
 .submitBtn {
+    all: unset;
+
+    height: 30px;
+
     width: 100%;
-    background-color: $graphite;
+    background-color: $main;
     text-align: center;
     color: white;
-    font-weight: 700;
-    font-size: $commonFont;
-    height: 100%;
-    border-radius: 10px;
+    font-weight: 600;
+    font-size: $littleFont;
+    border-radius: 15px;
     cursor: pointer;
     transition: box-shadow .3s;
-    &:hover {
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+        }
     }
 }
 
 .deleteBtn {
+    all: unset;
     width: 100%;
     border-radius: 10px;
     display: flex;

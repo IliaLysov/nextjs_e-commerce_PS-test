@@ -149,7 +149,7 @@ export default function CompanyForm() {
                             <div className={styles.input}>
                                 <Field type='text' name={CompanyEnum.site} label='Сайт питомника' error={touched.site && Boolean(errors.site)} helperText={touched.site && errors.site} component={InputWrapper}/>
                             </div>
-                            <div className={styles.horizon}>
+                            <div className={[styles.horizon, styles.socials].join(' ')}>
                                 <p className={styles.contactsDescriptioon}>Если вы хотите получать уведомления в месседжере о взаимодействии пользователей с вашими товарами, заполнито одно или оба следующих поля</p>
                                 <div className={styles.block}>
                                     <div className={styles.input}>

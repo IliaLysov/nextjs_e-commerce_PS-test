@@ -7,7 +7,7 @@ import { ModalTypeEnum } from "@/types/modal"
 import { useEffect } from 'react'
 import CompanyForm from './companyForm'
 import PlantForm from './plantForm'
-
+import CrossSVG from '@/icons/Cross.svg'
 
 
 export default function ModalWindow() {
@@ -46,6 +46,7 @@ export default function ModalWindow() {
     return (modal &&
         <div className={styles.wrapper} onClick={modalHandler}>
             <div className={styles.content} onClick={(event: React.MouseEvent<HTMLDivElement>) => event.stopPropagation()}>
+                <CrossSVG className={styles.cross} onClick={modalHandler}/>
                 {content()}
             </div>
         </div>

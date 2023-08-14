@@ -8,12 +8,17 @@
     user-select: none;
 }
 
+.topSide {
+    display: flex;
+    align-items: center;
+}
+
 .topBtn {
     font-size: $smallFont;
     font-weight: 700;
     height: 30px;
     padding: 0 20px;
-    border: .5px solid $someGrey;
+    border: 1px solid $someGrey;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -21,6 +26,12 @@
     padding-bottom: 1px;
     cursor: pointer;
     transition: background-color .3s;
+
+    margin-right: 20px;
+
+    &:last-child {
+        margin-right: 0;
+    }
 
     &.active {
         background-color: $someGrey;
@@ -40,16 +51,77 @@
     }
 }
 
+
+
 .topBtnIcon {
     height: auto;
     width: 20px;
     display: none;
     fill: none;
-    stroke: $graphite;
-    stroke-width: 2px;
+    stroke: $darkGrey;
+    stroke-width: 1.5px;
     @include phones600 {
         display: block;
     }
+}
+
+.tileSwitch {
+    position: relative;
+    height: 40px;
+    // border: 1px solid $main;
+    border-radius: 15px;
+    width: 80px;
+    display: flex;
+    overflow: hidden;
+
+    
+    &::before {
+        position: absolute;
+        content: '';
+        height: 100%;
+        right: 0;
+        width: 50%;
+        background-color: $main;
+        z-index: -10;
+        border-radius: 50%;
+        
+        transition: right .3s;
+    }
+
+    & .right {
+        fill: white;
+    }
+
+    &.active {
+        &::before {
+            right: 50%;
+        }
+
+        & .left {
+            fill: white;
+        }
+
+        & .right {
+            fill: $grey;
+        }
+    }
+}
+
+.tile {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.tileSwitchIcon {
+    height: auto;
+    width: 20px;
+    fill: $grey;
+    stroke-width: 1.5px;
+
+    transition: fill .3s;
 }
 
 .wrapper {
@@ -95,6 +167,12 @@
 
     column-gap: 30px;
     row-gap: 40px;
+
+    &.horizon {
+        display: flex;
+        flex-direction: column;
+        row-gap: 20px;
+    }
 
 
     @include desktop1650 {

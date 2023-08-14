@@ -2,22 +2,25 @@
 
 import styles from './styles.module.scss'
 import {useState, useEffect} from 'react'
-import { Filters, Item } from '..'
+import { Filters, PlantCatalogItemTile, PlantCatalogItemHorizon, PlantCompanyItemTile, PlantCompanyItemHorizon } from '..'
 import { useAppDispatch, useAppSelector } from '@/app/store'
 import { filtersSelector, appliedFiltersSelector, setAppliedFilters, allProductsGet, ownProductsGet, productsSelector, setModal, setFilters, setProducts, modalSelector, setProduct, cartSelector, removeFromCartPost, addToCartPost, removeFromCart, addToCart, favoritesSelector, removeFromFavoritesPost, addToFavoritesPost, removeFromFavorites, addToFavorites } from '@/modules'
 import { FiltersInterface } from '@/types/filter'
-import { PlantOwnerTypeEnum } from '@/types/product'
+import { PlantOwnerType, PlantOwnerTypeEnum } from '@/types/product'
 import { ModalTypeEnum } from '@/types/modal'
 import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { CartItemInterface } from '@/types/cart'
 import { FavoritesItemInterface } from '@/types/favorites'
-import Image from 'next/image'
-import FilterSVG from '@/icons/Filter.svg'
-import SettingsSVG from '@/icons/Settings.svg'
+
 import variables from '@/app/variables.module.scss'
 
-export default function Items({type}: {type: string}) {
+import FilterSVG from '@/icons/Filter.svg'
+import SettingsSVG from '@/icons/Settings.svg'
+import TileSVG from '@/icons/Tile.svg'
+import HorizonSVG from '@/icons/Horizon.svg'
+
+export default function Items({type}: {type: PlantOwnerType}) {
     const {data: session} = useSession()
     const dispatch = useAppDispatch()
     const router = useRouter()
@@ -185,16 +188,28 @@ export default function Items({type}: {type: string}) {
         }
     }, [favorites])
 
+    const [horizon, setHorizon] = useState(false)
+
     return (
         <>
             <div className={styles.top}>
-                <div className={[styles.topBtn, filterTab && styles.active].join(' ')} onClick={() => setFilterTab(prev => !prev)}>
-                    <div className={styles.topBtnName}>Фильтры</div>
-                    <FilterSVG className={styles.topBtnIcon}/>
+                <div className={styles.topSide}>
+                    <div className={[styles.topBtn, filterTab && styles.active].join(' ')} onClick={() => setFilterTab(prev => !prev)}>
+                        <div className={styles.topBtnName}>Фильтры</div>
+                        <FilterSVG className={styles.topBtnIcon}/>
+                    </div>
+                    <div className={styles.topBtn}>
+                        <div className={styles.topBtnName}>Сортировать по</div>
+                        <SettingsSVG className={styles.topBtnIcon}/>
+                    </div>
                 </div>
-                <div className={styles.topBtn}>
-                    <div className={styles.topBtnName}>Сортировать по</div>
-                    <SettingsSVG className={styles.topBtnIcon}/>
+                <div className={[styles.tileSwitch, horizon && styles.active].join(' ')}>
+                    <div className={styles.tile} onClick={() => setHorizon(true)}>
+                        <HorizonSVG className={[styles.tileSwitchIcon, styles.left].join(' ')}/>
+                    </div>
+                    <div className={styles.tile} onClick={() => setHorizon(false)}>
+                        <TileSVG className={[styles.tileSwitchIcon, styles.right].join(' ')}/>
+                    </div>
                 </div>
             </div>
             <div className={styles.wrapper}>
@@ -202,7 +217,7 @@ export default function Items({type}: {type: string}) {
                     <Filters filters={initialFilters} newFilters={newFilters} setNewFilters={setNewFilters} update={updateItemsByFilters} appliedFilters={appliedFilters} resetFilters={resetFilters}/>
                 </div>
                 <div className={styles.container}>
-                    <div className={styles.items}>
+                    <div className={[styles.items, horizon && styles.horizon].join(' ')}>
                         {type === PlantOwnerTypeEnum.Owner && <div className={styles.addItem} onClick={() => dispatch(setModal({type: ModalTypeEnum.PlantForm}))}>
                             <h2 className={styles.addItemTitle}>Добавить новое растение</h2>
                             <p className={styles.addItemDescription}>После создания, растение сразу будет доступно в каталоге</p>    
@@ -210,8 +225,23 @@ export default function Items({type}: {type: string}) {
                         {items.map((item: any, idx: number) => {
                             const cartExistance = cart.some((obj: CartItemInterface) => obj.productId === item._id)
                             const favoriteExistance = favorites.some((obj: FavoritesItemInterface) => obj.productId === item._id)
-                            return <li key={idx} onClick={() => linkTo(item)}>
-                                <Item item={item} profile={moveToProfile} handleCart={handleCart} inCart={cartExistance} handleFavorite={handleFavorites} inFavorite={favoriteExistance} type={type}/>
+                            return <li key={idx}>
+                                {
+                                    type === PlantOwnerTypeEnum.General && 
+                                    (horizon
+                                    ?
+                                    <PlantCatalogItemHorizon item={item} profile={moveToProfile} handleCart={handleCart} inCart={cartExistance} handleFavorite={handleFavorites} inFavorite={favoriteExistance} linkTo={linkTo}/>
+                                    :
+                                    <PlantCatalogItemTile item={item} profile={moveToProfile} handleCart={handleCart} inCart={cartExistance} handleFavorite={handleFavorites} inFavorite={favoriteExistance} linkTo={linkTo}/>)
+                                }
+                                {
+                                    type === PlantOwnerTypeEnum.Owner &&
+                                    (horizon
+                                        ?
+                                        <PlantCompanyItemHorizon item={item} profile={moveToProfile} handleCart={handleCart} inCart={cartExistance} handleFavorite={handleFavorites} inFavorite={favoriteExistance} linkTo={linkTo}/>
+                                        :
+                                        <PlantCompanyItemTile item={item} profile={moveToProfile} handleCart={handleCart} inCart={cartExistance} handleFavorite={handleFavorites} inFavorite={favoriteExistance} linkTo={linkTo}/>)
+                                }
                             </li>})}
                     </div>
                     {items.length === limit && <button className={styles.moreBtn} onClick={() => showMore()}>Загрузить еще</button>}

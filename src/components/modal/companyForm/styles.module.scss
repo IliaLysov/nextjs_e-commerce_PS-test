@@ -12,6 +12,10 @@
 
 .form {
     width: 440px;
+
+    @include phones600 {
+        width: 100%;
+    }
 }
 
 .title {
@@ -32,6 +36,10 @@
 
     &:last-child {
         margin-right: 0;
+    }
+
+    @include phones600 {
+        width: 100%;
     }
 }
 
@@ -108,12 +116,25 @@
     display: flex;
     align-items: center;
     margin-bottom: 20px;
+
+    &.socials {
+        @include phones600 {
+            flex-direction: column;
+        }
+    }
 }
 
 .contactsDescriptioon {
     font-size: $smallFont;
     width: 200px;
     margin-right: 20px;
+
+    @include phones600 {
+        margin-right: 0;
+        text-align: center;
+        width: 100%;
+        margin-bottom: 20px;
+    }
 }
 
 .input {

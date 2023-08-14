@@ -62,6 +62,7 @@
     width: auto;
     fill: $main;
     @include phones600 {
+        height: 35px;
         fill: $grey;
     }
 }
@@ -98,11 +99,25 @@
     align-items: center;
     
     margin-right: 15px;
+
+    &:last-child {
+        margin-right: 0;
+    }
     
     height: 30px;
-    border: .5px solid $someGrey;
+    border: 1px solid $someGrey;
     border-radius: 15px;
     padding: 0 10px;
+
+    cursor: pointer;
+    user-select: unset;
+
+    &.userLink {
+        padding-left: 3px;
+        @include tablets850 {
+            padding-right: 3px;
+        }
+    }
 
     &.active {
         background-color: $someGrey;
@@ -120,6 +135,7 @@
     }
 
     @include phones600 {
+        padding: 0;
         border: none;
         height: 50px;
         flex-direction: column;
@@ -131,14 +147,19 @@
 .navIcon {
     width: 16px;
     height: auto;
-    stroke-width: 2;
+    stroke-width: 1.5;
     stroke: $graphite;
     fill: none;
     
+    &.user {
+        width: 24px;
+        height: auto;
+        border-radius: 50%;
+    }
 
     @include phones600 {
-        stroke: $grey;
-        width: 24px;
+        stroke: $darkGrey;
+        width: 20px;
         margin-bottom: 3px;
     }
 }
@@ -155,8 +176,8 @@
 
     @include phones600 {
         display: block;
-        font-weight: 500;
-        color: $grey;
+        // font-weight: 500;
+        color: $darkGrey;
     }
 }
 
@@ -187,57 +208,46 @@
     }
 }
 
-.user {
-    position: relative;
-    display: flex;
-    align-items: center;
-    height: 30px;
-    min-width: 30px;
-    border-radius: 15px;
-    background-color: $lightGrey;
-    cursor: pointer;
+// .user {
+//     position: relative;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     height: 30px;
+//     min-width: 30px;
+//     border-radius: 15px;
+//     // background-color: $lightGrey;
+//     border: 1px solid $someGrey;
+//     cursor: pointer;
 
-    @include phones600 {
-        height: 50px;
-        flex-direction: column;
-        justify-content: center;
-        background-color: unset;
-    }
-}
+//     @include phones600 {
+//         height: 50px;
+//         flex-direction: column;
+//         justify-content: center;
+//         background-color: unset;
+//     }
+// }
 
-.avatar {
-    height: 30px;
-    width: 30px;
-    border-radius: 50%;
-    border: .5px solid $someGrey;
-    background-color: white;
+// .avatar {
+//     height: 30px;
+//     width: 30px;
+//     border-radius: 50%;
+//     background-color: white;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: $littleFont;
-    font-weight: 700;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     font-size: $littleFont;
+//     font-weight: 700;
+// }
 
-    @include phones600 {
-        border: 1.3px solid black;
-        height: 24px;
-        width: 24px;
-        margin-bottom: 3px;
-    }
-}
-
-.userName {
-    margin-right: 15px;
-    margin-left: 10px;
-    width: fit-content;
-    font-size: $smallFont;
-    white-space: nowrap;
-
-    @include phones600 {
-        font-weight: 500;
-        color: $grey;
-    }
-}
+// .userName {
+//     margin-right: 15px;
+//     margin-left: 10px;
+//     width: fit-content;
+//     font-size: $smallFont;
+//     white-space: nowrap;
+// }
 
 
 

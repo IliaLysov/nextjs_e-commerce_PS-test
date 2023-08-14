@@ -11,9 +11,13 @@
     align-items: center;
     user-select: none;
     transition: box-shadow .3s;
-    border: 0.5px solid $someGrey;
+    border: 1px solid $someGrey;
     
     height: 100%;
+
+    @include phones600 {
+        border-radius: 20px;
+    }
 
     @media (hover: hover) and (pointer: fine) {
         &:hover {
@@ -27,10 +31,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    &.owner {
-        cursor: pointer;
-    }
 }
 
 .imageWrapper {
@@ -39,6 +39,10 @@
     width: 100%;
     margin-bottom: 25px;
     z-index: 100;
+
+    @include phones600 {
+        margin-bottom: 30px;
+    }
 }
 
 .image {
@@ -59,9 +63,11 @@
     cursor: pointer;
     transition: transform .3s;
 
-    // &:hover {
-    //     transform: scale(120%);
-    // }
+
+    @include phones600 {
+        height: 40px;
+        width: 40px;
+    }
 
     @media (hover: hover) and (pointer: fine) {
         &:hover {
@@ -71,16 +77,32 @@
 }
 
 .like {
-    width: 16px;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+
+    width: 25px;
     height: auto;
-    fill: none;
-    stroke: $graphite;
-    stroke-width: 2px;
+    fill: rgba(0, 0, 0, 0.4);
+    stroke: white;
+    stroke-width: 1px;
+
+    @include phones600 {
+        width: 30px;
+    }
 
     &.active {
-        fill: red;
-        stroke: red;
+        fill: rgba(255, 0, 0, 0.7);
     }
+
+    transition: transform .3s;
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            transform: scale(120%);
+        }
+    }
+    
 }
 
 .sellerAvatarWrapper {
@@ -91,24 +113,36 @@
     background-color: white;
     height: 50px;
     width: 50px;
-    border-radius: 25px;
+    border-radius: 50%;
     // overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
+
+    @include phones600 {
+        bottom: -30px;
+        height: 60px;
+        width: 60px;
+    }
 }
 
 .sellerAvatar {
-    height: 44px;
-    width: 44px;
+    height: 40px;
+    width: 40px;
     border-radius: 50%;
     cursor: pointer;
     // border: .5px solid white;
     transition: box-shadow .3s;
 
-    &:hover {
-        // border: .5px solid black;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4)
+    @include phones600 {
+        height: 50px;
+        width: 50px;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4)
+        }
     }
 }
 
@@ -148,7 +182,7 @@
     position: relative;
     margin-top: 20px;
     display: flex;
-    border: 0.5px solid $main;
+    border: 1px solid $main;
     justify-content: space-between;
     font-size: $smallFont;
     height: 30px;
@@ -156,6 +190,11 @@
     width: 100%;
     font-weight: 700;
     transition: border-color .3s;
+
+    @include phones600 {
+        height: 40px;
+        border-radius: 20px;
+    }
 
     &.pending {
         & .button {
@@ -166,7 +205,7 @@
     }
     
     &.active {
-        border: 0.5px solid $second;
+        border: 1px solid $second;
 
         cursor: pointer;
         & .button {
@@ -223,5 +262,9 @@
         justify-content: center;
         align-items: center;
         padding-bottom: 1px;
+
+        @include phones600 {
+            border-radius: 20px;
+        }
     }
 }

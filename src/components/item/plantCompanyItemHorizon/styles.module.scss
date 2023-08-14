@@ -1,0 +1,231 @@
+@import '@/app/main';
+
+.wrapper {
+    position: relative;
+    height: 120px;
+    border: 1px solid $someGrey;
+    border-radius: 15px;
+    overflow: hidden;
+
+    display: flex;
+    justify-content: space-between;
+
+    transition: box-shadow .3s;
+
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1)
+        }
+    }
+
+    @include phones600 {
+        border-radius: 20px;
+    }
+}
+
+.side {
+    height: 100%;
+    display: flex;
+}
+
+.imageWrapper {
+    position: relative;
+    height: 100%;
+    width: fit-content;
+}
+
+.image {
+    height: 100%;
+    width: auto;
+    border-radius: 15px;
+    cursor: pointer;
+
+    @include phones600 {
+        border-radius: 20px;
+    }
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-right: 40px;
+}
+
+.plantNames {
+    display: flex;
+    flex-direction: column;
+}
+
+.name {
+    font-size: $littleFont;
+    font-weight: 600;
+    margin-bottom: 5px;
+    cursor: pointer;
+    transition: color .3s;
+
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            color: $main;
+        }
+    }
+
+    @include phones600 {
+        font-size: $smallFont;
+        font-weight: 700;
+    }
+}
+
+.latinName {
+    font-size: $smallFont;
+    color: $grey;
+}
+
+.companyLogoWrapper {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    height: 40px;
+    width: 40px;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translate(50%, -50%);
+
+    
+}
+
+.companyLogo {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+
+    transition: box-shadow .3s;
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4)
+        }
+    }
+}
+
+.companyName {
+    font-size: $smallFont;
+    color: $grey;
+    margin-left: 6px;
+}
+
+.rightSide {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+.like {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+
+    width: 25px;
+    height: auto;
+    fill: rgba(0, 0, 0, 0.4);
+    stroke: white;
+    stroke-width: 1px;
+
+    @include phones600 {
+        width: 30px;
+    }
+
+    &.active {
+        fill: rgba(255, 0, 0, 0.7);
+    }
+
+    transition: transform .3s;
+
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            transform: scale(120%);
+        }
+    }
+}
+
+.orderInfo {
+    overflow: hidden;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    display: flex;
+    align-items: center;
+    border: 1px solid $main;
+    height: 40px;
+    border-radius: 20px;
+    width: 180px;
+
+    @include phones600 {
+        width: 140px;
+    }
+
+    transition: width .3s;
+
+
+    &.active {
+        border: 1px solid $second;
+
+        width: 40px;
+
+        & .orderBtn {
+            background-color: $second;
+        }
+
+        & .price {
+            color: $grey;
+        }
+    }
+}
+
+.price {
+    position: relative;
+    font-size: $littleFont;
+    font-weight: 600;
+    text-align: center;
+    flex: 1;
+    white-space: nowrap;
+
+    @include phones600 {
+        font-size: $smallFont;
+
+    }
+}
+
+.orderBtn {
+    all: unset;
+
+    position: absolute;
+    right: 0;
+    // top: 0;
+    cursor: pointer;
+    background-color: $main;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.orderIcon {
+    stroke: white;
+    height: auto;
+    width: 20px;
+    stroke-width: 1.5px;
+}

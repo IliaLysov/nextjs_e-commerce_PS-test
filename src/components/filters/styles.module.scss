@@ -29,7 +29,7 @@
     font-weight: 700;
     font-size: $smallFont;
 
-    border: .5px solid $someGrey;
+    border: 1px solid $someGrey;
 
     
     margin-bottom: 10px;
@@ -38,9 +38,14 @@
     
     &.active {
         cursor: pointer;
-        background-color: black;
-        border: .5px solid black;
+        background-color: $main;
+        border: 1px solid $main;
         color: white;
+
+        &.resetBtn {
+            background-color: $second;
+            border: 1px solid $second;
+        }
     }
 }
 

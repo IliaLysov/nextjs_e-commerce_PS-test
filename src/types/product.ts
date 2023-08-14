@@ -6,6 +6,15 @@ export enum PlantOwnerTypeEnum {
     General = 'GENERAL'
 }
 
+export type PlantOwnerType = PlantOwnerTypeEnum[keyof PlantOwnerTypeEnum]
+
+export enum PlantItemTypeEnum {
+    Horizon = 'HORIZON',
+    Tile = 'TILE'
+}
+
+export type PlantItemType = PlantItemTypeEnum[keyof PlantItemTypeEnum]
+
 export interface PlantFormInterface {
 
 }

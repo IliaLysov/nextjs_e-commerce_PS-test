@@ -23,12 +23,11 @@ function* addOnePlantPostSaga(action: ReturnType<typeof addOnePlantPost>): Gener
             }
         }
 
-        for (const [key, value] of formData.entries()) {
-            console.log(key, value)
-        }
+        // for (const [key, value] of formData.entries()) {
+        //     console.log(key, value)
+        // }
 
         const response: any = yield call(PlantsService.addOne, formData)
-        console.log(response)
         if (response.error) {
             yield put(setProductFormError(response.error))
         } else {
@@ -43,7 +42,6 @@ function* ownProductsGetSaga(action: ReturnType<typeof ownProductsGet>): Generat
     try {
         const {skip, appliedFilters, sort, organizationId} = action.payload
         const response: any = yield call(PlantsService.getOwn, {params: {skip, appliedFilters, sort}, organizationId})
-        console.log('ownProductsGetSaga', response)
         const plants: PlantInterface[] = response.products
         const filters: FiltersInterface = response.filters
         yield put(setProducts(plants))
@@ -60,7 +58,6 @@ function* allProductsGetSaga(action: ReturnType<typeof ownProductsGet>): Generat
     try {
         const {skip, appliedFilters, sort} = action.payload
         const response: any = yield call(PlantsService.getAll, action.payload)
-        console.log('allProductsGetSaga', response)
         const plants: PlantInterface[] = response.products
         const filters: FiltersInterface = response.filters
         yield put(setProducts(plants))
