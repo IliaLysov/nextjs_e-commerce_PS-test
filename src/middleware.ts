@@ -16,7 +16,7 @@ export async function middleware(request: NextRequest) {
 
     const origin = request.headers.get('origin') //не работает для localhost
         
-    if (origin && !allowedOrigins.includes(origin) || process.env.NODE_ENV === "production" && !origin) { //добавить  (origin && !allowedOrigins.includes(origin) || !origin) для запрета доступа с рессурсов без адреса
+    if (origin && !allowedOrigins.includes(origin)) { //добавить  (origin && !allowedOrigins.includes(origin) || !origin) для запрета доступа с рессурсов без адреса
         return new NextResponse(null, {
             status: 400,
             statusText: 'Bad Request',
