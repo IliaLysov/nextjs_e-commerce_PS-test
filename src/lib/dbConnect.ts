@@ -31,13 +31,13 @@ async function dbConnect() {
       bufferCommands: false,
     };
 
-    try {
-      cached.promise = connect(MONGODB_URI!, opts).then((mongoose) => {
-        return mongoose;
-      });
-    } catch (e) {
-      throw e
-    }
+    cached.promise = connect(MONGODB_URI!, opts).then((mongoose) => {
+      return mongoose;
+    });
+    // try {
+    // } catch (e) {
+    //   throw e
+    // }
   }
 
   try {
