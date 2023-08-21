@@ -10,6 +10,9 @@ export default function Filters({filters, newFilters, setNewFilters, update, app
     const newFilterComparison = compareObjects(newFilters, appliedFilters)
     const filterComparison = compareObjects(filters, appliedFilters)
 
+    // console.log('filters', filters)
+    // console.log('appliedFilters', appliedFilters)
+
     // console.log('newFilterComparison', newFilterComparison)
     // console.log('filterComparison', filterComparison)
     // console.log('newFilters', newFilters)

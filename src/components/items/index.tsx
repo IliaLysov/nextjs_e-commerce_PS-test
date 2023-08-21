@@ -4,7 +4,7 @@ import styles from './styles.module.scss'
 import {useState, useEffect} from 'react'
 import { Filters, PlantCatalogItemTile, PlantCatalogItemHorizon, PlantCompanyItemTile, PlantCompanyItemHorizon } from '..'
 import { useAppDispatch, useAppSelector } from '@/app/store'
-import { filtersSelector, appliedFiltersSelector, setAppliedFilters, allProductsGet, ownProductsGet, productsSelector, setModal, setFilters, setProducts, modalSelector, setProduct, cartSelector, removeFromCartPost, addToCartPost, removeFromCart, addToCart, favoritesSelector, removeFromFavoritesPost, addToFavoritesPost, removeFromFavorites, addToFavorites } from '@/modules'
+import { filtersSelector, appliedFiltersSelector, setAppliedFilters, allProductsGet, ownProductsGet, productsSelector, setModal, setFilters, setProducts, modalSelector, setProduct, cartSelector, removeFromCartPost, addToCartPost, removeFromCart, addToCart, favoritesSelector, removeFromFavoritesPost, addToFavoritesPost, removeFromFavorites, addToFavorites, favoritesProductsGet, cartProductsGet } from '@/modules'
 import { FiltersInterface } from '@/types/filter'
 import { PlantOwnerType, PlantOwnerTypeEnum } from '@/types/product'
 import { ModalTypeEnum } from '@/types/modal'
@@ -20,7 +20,7 @@ import SettingsSVG from '@/icons/Settings.svg'
 import TileSVG from '@/icons/Tile.svg'
 import HorizonSVG from '@/icons/Horizon.svg'
 
-export default function Items({type}: {type: PlantOwnerType}) {
+export default function Items({type,}: {type: PlantOwnerType}) {
     const {data: session} = useSession()
     const dispatch = useAppDispatch()
     const router = useRouter()
@@ -35,6 +35,10 @@ export default function Items({type}: {type: PlantOwnerType}) {
         get = allProductsGet
     } else if (type === PlantOwnerTypeEnum.Owner) {
         get = ownProductsGet
+    } else if (type === PlantOwnerTypeEnum.Favorites) {
+        get = favoritesProductsGet
+    } else if (type === PlantOwnerTypeEnum.Cart) {
+        get = cartProductsGet
     } else {
         console.error('Invalid items type')
     }
@@ -89,7 +93,7 @@ export default function Items({type}: {type: PlantOwnerType}) {
     //---------------------------------------------------------
 
     useEffect(() => {
-        (session || type === PlantOwnerTypeEnum.General && session === null) && items.length === 0 && dispatch(get({skip: 0, appliedFilters: null, sort: {}, organizationId: session && session.company?._id}))
+        (session || (type === PlantOwnerTypeEnum.General || type === PlantOwnerTypeEnum.Favorites || type === PlantOwnerTypeEnum.Cart) && session === null) && items.length === 0 && dispatch(get({skip: 0, appliedFilters: null, sort: {}, organizationId: session && session.company?._id}))
     }, [session])
 
     useEffect(() => {
@@ -119,7 +123,7 @@ export default function Items({type}: {type: PlantOwnerType}) {
     }
 
     const linkTo = (item: any) => {
-        if (type === PlantOwnerTypeEnum.General) {
+        if (type === PlantOwnerTypeEnum.General || type === PlantOwnerTypeEnum.Favorites || type === PlantOwnerTypeEnum.Cart) {
             dispatch(setProduct(item))
             const {name, _id} = item 
             const link = name.toLocaleLowerCase().split(' ').join('-') + `-${_id}`
@@ -227,7 +231,7 @@ export default function Items({type}: {type: PlantOwnerType}) {
                             const favoriteExistance = favorites.some((obj: FavoritesItemInterface) => obj.productId === item._id)
                             return <li key={idx}>
                                 {
-                                    type === PlantOwnerTypeEnum.General && 
+                                    (type === PlantOwnerTypeEnum.General || type === PlantOwnerTypeEnum.Favorites || type === PlantOwnerTypeEnum.Cart) && 
                                     (horizon
                                     ?
                                     <PlantCatalogItemHorizon item={item} profile={moveToProfile} handleCart={handleCart} inCart={cartExistance} handleFavorite={handleFavorites} inFavorite={favoriteExistance} linkTo={linkTo}/>

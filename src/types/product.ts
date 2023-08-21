@@ -3,7 +3,9 @@ import { Types } from "mongoose"
 
 export enum PlantOwnerTypeEnum {
     Owner = 'OWNER',
-    General = 'GENERAL'
+    General = 'GENERAL',
+    Favorites = 'FAVORITES',
+    Cart = 'CART'
 }
 
 export type PlantOwnerType = PlantOwnerTypeEnum[keyof PlantOwnerTypeEnum]
