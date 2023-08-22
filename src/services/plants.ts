@@ -18,7 +18,7 @@ export default class PlantsService {
         return await response.json()
     }
 
-    static async getAll(params: {skip: number, appliedFilters: FiltersInterface | null, sort: any}) {
+    static async getAll(params: {skip: number, appliedFilters: Partial<FiltersInterface> | null, sort: any}) {
         const response = await fetch('/api/plants/many', {
             headers: {"Content-Type": "application/json"},
             method: 'POST',

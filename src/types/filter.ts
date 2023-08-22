@@ -1,6 +1,6 @@
 export interface FiltersInterface {
-    price?: PriceInterface
-    count?: number
+    price: PriceInterface
+    count: number
     id?: IdInterface
 }
 

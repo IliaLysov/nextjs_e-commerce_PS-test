@@ -59,6 +59,6 @@ export const companyItemTile = () => {
 export const companyItemHorizon = () => {
 
     return (
-        <PlantCompanyItemTile item={item} profile={() => null}/>
+        <PlantCompanyItemTile item={item} profile={() => null} linkTo={null}/>
     )
 }

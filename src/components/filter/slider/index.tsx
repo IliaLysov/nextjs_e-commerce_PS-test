@@ -15,7 +15,7 @@ interface CurrentInterface {
 //     max: number
 // }
 
-export default function CustomSlider({title, min, max, label, value, setNewFilters}: {title: string, min: number, max: number, label: string, value: FiltersType, setNewFilters: Dispatch<SetStateAction<FiltersInterface | null>>}) {
+export default function CustomSlider({title, min, max, label, value, setNewFilters}: {title: string, min: number, max: number, label: string, value: {min: number, max: number}, setNewFilters: Dispatch<SetStateAction<FiltersInterface | null>>}) {
     const [currentSliderVal, setCurrentSliderVal] = useState<number[]>([value.min, value.max])
     const [currentVal, setCurrentVal] = useState<CurrentInterface>(value)
 

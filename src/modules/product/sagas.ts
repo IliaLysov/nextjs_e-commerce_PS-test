@@ -74,7 +74,7 @@ function* favoritesProductsGetSaga(action: ReturnType<typeof ownProductsGet>): G
     try {
         const {skip, appliedFilters, sort} = action.payload
         const favorites: any = yield select(favoritesSelector)
-        const args: {skip: number, appliedFilters: FiltersInterface | null, sort: any} = {skip, appliedFilters: {...appliedFilters, id: favorites.map((obj: FavoritesDBItemInterface) => obj.productId)}, sort}
+        const args: {skip: number, appliedFilters: Partial<FiltersInterface> | null, sort: any} = {skip, appliedFilters: {...appliedFilters, id: favorites.map((obj: FavoritesDBItemInterface) => obj.productId)}, sort}
         const response: any = yield call(PlantsService.getAll, args)
         const plants: PlantInterface[] = response.products
         const filters: FiltersInterface = response.filters
@@ -91,7 +91,7 @@ function* cartProductsGetSaga(action: ReturnType<typeof ownProductsGet>): Genera
     try {
         const {skip, appliedFilters, sort} = action.payload
         const cart: any = yield select(cartSelector)
-        const args: {skip: number, appliedFilters: FiltersInterface | null, sort: any} = {skip, appliedFilters: {...appliedFilters, id: cart.map((obj: CartDBItemInterface) => obj.productId)}, sort}
+        const args: {skip: number, appliedFilters: Partial<FiltersInterface> | null, sort: any} = {skip, appliedFilters: {...appliedFilters, id: cart.map((obj: CartDBItemInterface) => obj.productId)}, sort}
         const response: any = yield call(PlantsService.getAll, args)
         const plants: PlantInterface[] = response.products
         const filters: FiltersInterface = response.filters
