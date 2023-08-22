@@ -192,7 +192,7 @@ export default function Items({type,}: {type: PlantOwnerType}) {
         } else {
             if (currentCartItem) {
                 dispatch(removeFromCart(currentCartItem.productId))
-                // dispatch(deleteProduct(currentCartItem.productId))
+                dispatch(deleteProduct(currentCartItem.productId))
             } else {
                 dispatch(addToCart({productId: _id, count: 1}))
             }
@@ -220,7 +220,7 @@ export default function Items({type,}: {type: PlantOwnerType}) {
         } else {
             if (currentFavoritesItem) {
                 dispatch(removeFromFavorites(currentFavoritesItem.productId))
-                // dispatch(deleteProduct(currentFavoritesItem.productId))
+                dispatch(deleteProduct(currentFavoritesItem.productId))
             } else {
                 dispatch(addToFavorites({productId: _id}))
             }

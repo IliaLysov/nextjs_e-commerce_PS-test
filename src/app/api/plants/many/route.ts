@@ -39,20 +39,18 @@ export async function POST(request: Request) {
         }
 
         const aggregate = await PlantSchema.aggregate(body)
-        if (aggregate.length === 0) {
-            return null
-        }
-        const filters = 
+
+        const filters = aggregate.length !== 0 ?
         {
             count: aggregate[0].count,
             price: {min: aggregate[0].minPrice, max: aggregate[0].maxPrice}
-        }
+        } : null
 
 
-        const newAppliedFilters = {
+        const newAppliedFilters = aggregate.length !== 0 ? {
             count: aggregate[0].count,
             price: appliedFilters?.price ? {min: aggregate[0].minPrice > appliedFilters.price.min ? aggregate[0].minPrice : appliedFilters.price.min, max: aggregate[0].maxPrice < appliedFilters.price.max ? aggregate[0].maxPrice : appliedFilters.price.max} : {min: aggregate[0].minPrice, max: aggregate[0].maxPrice}
-        }
+        } : null
 
 
         return NextResponse.json({products, filters, newAppliedFilters})

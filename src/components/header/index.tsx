@@ -35,11 +35,20 @@ export default function Header() {
     
     const menuRef = useRef<HTMLDivElement>(null)
     const userRef = useRef<HTMLDivElement>(null)
-
+    
     useEffect(() => {
         if (session) {
             session.cart && dispatch(setCart(session.cart))
             session.favorites && dispatch(setFavorites(session.favorites))
+        } else {
+            const cart = localStorage.getItem('localCart')
+            if (cart) {
+                dispatch(setCart(JSON.parse(cart)))
+            }
+            const favorites = localStorage.getItem('localFavorites')
+            if (favorites) {
+                dispatch(setFavorites(JSON.parse(favorites)))
+            }
         }
     }, [session])
 
