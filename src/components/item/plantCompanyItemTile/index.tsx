@@ -1,17 +1,9 @@
-'use client'
-
 import styles from './styles.module.scss'
 import LikeSVG from '@/icons/Like.svg'
 import { PlantItemType, PlantOwnerTypeEnum } from '@/types/product'
 import { useEffect, useState } from 'react'
 
-export default function PlantCompanyItemTile({item, profile, handleCart, inCart, handleFavorite, inFavorite, linkTo}: {item: any, profile: any, handleCart: any, inCart: boolean, handleFavorite: any, inFavorite: boolean, linkTo: any}) {
-
-    const [cartPending, setCartPending] = useState(false)
-
-    useEffect(() => {
-        setCartPending(false)
-    }, [inCart])
+export default function PlantCompanyItemTile({item, profile, linkTo}: {item: any, profile: any, linkTo: any}) {
 
     return (
         <div className={styles.wrapper}>

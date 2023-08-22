@@ -4,14 +4,14 @@ import styles from './styles.module.scss'
 import {useState, useEffect} from 'react'
 import { Filters, PlantCatalogItemTile, PlantCatalogItemHorizon, PlantCompanyItemTile, PlantCompanyItemHorizon } from '..'
 import { useAppDispatch, useAppSelector } from '@/app/store'
-import { filtersSelector, appliedFiltersSelector, setAppliedFilters, allProductsGet, ownProductsGet, productsSelector, setModal, setFilters, setProducts, modalSelector, setProduct, cartSelector, removeFromCartPost, addToCartPost, removeFromCart, addToCart, favoritesSelector, removeFromFavoritesPost, addToFavoritesPost, removeFromFavorites, addToFavorites, favoritesProductsGet, cartProductsGet } from '@/modules'
+import { filtersSelector, appliedFiltersSelector, setAppliedFilters, allProductsGet, ownProductsGet, productsSelector, setModal, setFilters, setProducts, modalSelector, setProduct, cartSelector, removeFromCartPost, addToCartPost, removeFromCart, addToCart, favoritesSelector, removeFromFavoritesPost, addToFavoritesPost, removeFromFavorites, addToFavorites, favoritesProductsGet, cartProductsGet, deleteProduct } from '@/modules'
 import { FiltersInterface } from '@/types/filter'
 import { PlantOwnerType, PlantOwnerTypeEnum } from '@/types/product'
 import { ModalTypeEnum } from '@/types/modal'
 import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
-import { CartItemInterface } from '@/types/cart'
-import { FavoritesItemInterface } from '@/types/favorites'
+import { CartDBItemInterface, CartItemInterface } from '@/types/cart'
+import { FavoritesDBItemInterface, FavoritesItemInterface } from '@/types/favorites'
 
 import variables from '@/app/variables.module.scss'
 
@@ -19,6 +19,7 @@ import FilterSVG from '@/icons/Filter.svg'
 import SettingsSVG from '@/icons/Settings.svg'
 import TileSVG from '@/icons/Tile.svg'
 import HorizonSVG from '@/icons/Horizon.svg'
+import { compareArraysByObjectID, compareObjects } from '@/utils/compare'
 
 export default function Items({type,}: {type: PlantOwnerType}) {
     const {data: session} = useSession()
@@ -62,7 +63,6 @@ export default function Items({type,}: {type: PlantOwnerType}) {
         } else {
             if (initialFilters) {
                 setNewFilters(initialFilters)
-                dispatch(setAppliedFilters(initialFilters))
             }
         }
     }, [initialFilters])
@@ -86,8 +86,17 @@ export default function Items({type,}: {type: PlantOwnerType}) {
     }
 
     useEffect(() => {
-        setLimit(initialLimit)
-        setItems(newItems)
+        const comparison = compareObjects(initialFilters, appliedFilters)
+        if (!comparison) {
+            setLimit(initialLimit)
+            setItems(newItems)
+        } else {
+            const comparison2 = compareObjects(initialFilters, newFilters)
+            if (comparison2) {
+                setLimit(initialLimit)
+                setItems(newItems)
+            }
+        }
     }, [appliedFilters])
 
     //---------------------------------------------------------
@@ -105,12 +114,39 @@ export default function Items({type,}: {type: PlantOwnerType}) {
     }, [])
 
     useEffect(() => {
+        const refresh = () => {
+            const comparison = compareObjects(initialFilters, appliedFilters)
+            if (type === PlantOwnerTypeEnum.Cart && comparison) {
+                const refreshItems = items.filter((itemObj: any) => {
+                    const boolArr = cart.map((obj: CartDBItemInterface) => obj.productId === itemObj._id)
+                    return boolArr.includes(true)
+                })
+    
+                const newItem = newItems.filter((itemObj: any) => {
+                    const boolArr = refreshItems.map((obj: any) => obj._id === itemObj._id)
+                    return !boolArr.includes(true)
+                })
+                
+                setItems([...refreshItems, ...newItem])
+            }
+    
+            if (type === PlantOwnerTypeEnum.Favorites && comparison) {
+                const refreshItems = items.filter((itemObj: any) => {
+                    const boolArr = favorites.map((obj: FavoritesDBItemInterface) => obj.productId === itemObj._id)
+                    return boolArr.includes(true)
+                })
+    
+                const newItem = newItems.filter((itemObj: any) => {
+                    const boolArr = refreshItems.map((obj: any) => obj._id === itemObj._id)
+                    return !boolArr.includes(true)
+                })
+                
+                setItems([...refreshItems, ...newItem])
+            }
+        }
+
         items.length === 0 ? setItems(newItems) :
-        limit > items.length && items.length % initialLimit === 0 && setItems([...items, ...newItems])
-
-        // limit > items.length && items.length % initialLimit === 0 ? setItems([...items, ...newItems]) :
-        // setItems(newItems)
-
+        limit > items.length && items.length % initialLimit === 0 ? setItems([...items, ...newItems]) : refresh()
     }, [newItems])
 
     useEffect(() => {
@@ -145,13 +181,18 @@ export default function Items({type,}: {type: PlantOwnerType}) {
         const currentCartItem = cart.find(obj => obj.productId === _id)       
         if (session) {
             if (currentCartItem) {
-                dispatch(removeFromCartPost(currentCartItem))
+                dispatch(removeFromCartPost({cart: currentCartItem, body: type === PlantOwnerTypeEnum.Cart ? {skip: 0, appliedFilters: appliedFilters, sort: {}} : null}))
+
+                // if (type === PlantOwnerTypeEnum.Cart) {
+                //     dispatch()
+                // }
             } else {
                 dispatch(addToCartPost({productId: _id, count: 1}))
             }
         } else {
             if (currentCartItem) {
                 dispatch(removeFromCart(currentCartItem.productId))
+                // dispatch(deleteProduct(currentCartItem.productId))
             } else {
                 dispatch(addToCart({productId: _id, count: 1}))
             }
@@ -172,13 +213,14 @@ export default function Items({type,}: {type: PlantOwnerType}) {
         const currentFavoritesItem = favorites.find(obj => obj.productId === _id)       
         if (session) {
             if (currentFavoritesItem) {
-                dispatch(removeFromFavoritesPost(currentFavoritesItem))
+                dispatch(removeFromFavoritesPost({favorites: currentFavoritesItem, body: type === PlantOwnerTypeEnum.Favorites ? {skip: 0, appliedFilters: appliedFilters, sort: {}} : null}))
             } else {
                 dispatch(addToFavoritesPost(_id))
             }
         } else {
             if (currentFavoritesItem) {
                 dispatch(removeFromFavorites(currentFavoritesItem.productId))
+                // dispatch(deleteProduct(currentFavoritesItem.productId))
             } else {
                 dispatch(addToFavorites({productId: _id}))
             }
@@ -193,6 +235,9 @@ export default function Items({type,}: {type: PlantOwnerType}) {
     }, [favorites])
 
     const [horizon, setHorizon] = useState(false)
+
+    console.log('items.length', items.length)
+    console.log('appliedFilters?.count', appliedFilters?.count)
 
     return (
         <>
@@ -242,13 +287,13 @@ export default function Items({type,}: {type: PlantOwnerType}) {
                                     type === PlantOwnerTypeEnum.Owner &&
                                     (horizon
                                         ?
-                                        <PlantCompanyItemHorizon item={item} profile={moveToProfile} handleCart={handleCart} inCart={cartExistance} handleFavorite={handleFavorites} inFavorite={favoriteExistance} linkTo={linkTo}/>
+                                        <PlantCompanyItemHorizon item={item} profile={moveToProfile} linkTo={linkTo}/>
                                         :
-                                        <PlantCompanyItemTile item={item} profile={moveToProfile} handleCart={handleCart} inCart={cartExistance} handleFavorite={handleFavorites} inFavorite={favoriteExistance} linkTo={linkTo}/>)
+                                        <PlantCompanyItemTile item={item} profile={moveToProfile} linkTo={linkTo}/>)
                                 }
                             </li>})}
                     </div>
-                    {items.length === limit && <button className={styles.moreBtn} onClick={() => showMore()}>Загрузить еще</button>}
+                    {items.length !== appliedFilters?.count && items.length === limit && <button className={styles.moreBtn} onClick={() => showMore()}>Загрузить еще</button>}
                 </div>
             </div>
         </>

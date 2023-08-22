@@ -3,6 +3,8 @@ import { addToFavoritesPost, removeFromFavoritesPost } from './sagaActions'
 import { FavoritesDBItemInterface, FavoritesItemInterface } from '@/types/favorites'
 import { addToFavorites, removeFromFavorites } from './actions'
 import FavoritesService from '@/services/favorites'
+import { PlantOwnerTypeEnum } from '@/types/product'
+import { deleteProduct, favoritesProductsGet } from '..'
 
 function* addToFavoritesPostSaga(action: ReturnType<typeof addToFavoritesPost>): Generator {
     try {
@@ -17,11 +19,16 @@ function* addToFavoritesPostSaga(action: ReturnType<typeof addToFavoritesPost>):
 
 function* removeFromFavoritesPostSaga(action: ReturnType<typeof removeFromFavoritesPost>): Generator {
     try {
-        const {favoriteId, productId} = action.payload
+        const {favoriteId, productId} = action.payload.favorites
+        const body = action.payload.body
         if (favoriteId) {
             yield call(FavoritesService.remove, favoriteId)
+            yield put(removeFromFavorites(productId))
+            if (body) {
+                yield put(favoritesProductsGet(body))
+            }
         }
-        yield put(removeFromFavorites(productId))
+        
     } catch(e: any) {
         console.log(e)
     }

@@ -46,11 +46,10 @@ function* ownProductsGetSaga(action: ReturnType<typeof ownProductsGet>): Generat
         const response: any = yield call(PlantsService.getOwn, {params: {skip, appliedFilters, sort}, organizationId})
         const plants: PlantInterface[] = response.products
         const filters: FiltersInterface = response.filters
+        const newAppliedFilters: FiltersInterface = response.newAppliedFilters
         yield put(setProducts(plants))
         yield put(setFilters(filters))
-        if (appliedFilters) {
-            yield put(setAppliedFilters(appliedFilters))
-        }
+        yield put(setAppliedFilters(newAppliedFilters))
     } catch (e: any) {
         console.log('product ownProductsGetSaga', e)
     }
@@ -62,11 +61,10 @@ function* allProductsGetSaga(action: ReturnType<typeof ownProductsGet>): Generat
         const response: any = yield call(PlantsService.getAll, action.payload)
         const plants: PlantInterface[] = response.products
         const filters: FiltersInterface = response.filters
+        const newAppliedFilters: FiltersInterface = response.newAppliedFilters
         yield put(setProducts(plants))
         yield put(setFilters(filters))
-        if (appliedFilters) {
-            yield put(setAppliedFilters(appliedFilters))
-        }
+        yield put(setAppliedFilters(newAppliedFilters))
     } catch (e: any) {
         console.log('product allProductsGetSaga', e)
     }
@@ -80,11 +78,10 @@ function* favoritesProductsGetSaga(action: ReturnType<typeof ownProductsGet>): G
         const response: any = yield call(PlantsService.getAll, args)
         const plants: PlantInterface[] = response.products
         const filters: FiltersInterface = response.filters
+        const newAppliedFilters: FiltersInterface = response.newAppliedFilters
         yield put(setProducts(plants))
         yield put(setFilters(filters))
-        if (appliedFilters) {
-            yield put(setAppliedFilters(appliedFilters))
-        }
+        yield put(setAppliedFilters(newAppliedFilters))
     } catch (e: any) {
         console.log('product allProductsGetSaga', e)
     }
@@ -98,11 +95,10 @@ function* cartProductsGetSaga(action: ReturnType<typeof ownProductsGet>): Genera
         const response: any = yield call(PlantsService.getAll, args)
         const plants: PlantInterface[] = response.products
         const filters: FiltersInterface = response.filters
+        const newAppliedFilters: FiltersInterface = response.newAppliedFilters
         yield put(setProducts(plants))
         yield put(setFilters(filters))
-        if (appliedFilters) {
-            yield put(setAppliedFilters(appliedFilters))
-        }
+        yield put(setAppliedFilters(newAppliedFilters))
     } catch (e: any) {
         console.log('product allProductsGetSaga', e)
     }

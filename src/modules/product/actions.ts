@@ -4,6 +4,7 @@ import { PlantInterface } from '@/types/product'
 
 export const setProducts = createAction<PlantInterface[]>('SET_PRODUCTS')
 export const setProduct = createAction<PlantInterface>('SET_PRODUCT')
+export const deleteProduct = createAction<string>('DELETE_PRODUCT')
 
 export const setFilters = createAction<Partial<FiltersInterface> | null>('SET_FILTERS')
 export const setCartProducts = createAction<PlantInterface[]>('SET_CART_PRODUCTS')

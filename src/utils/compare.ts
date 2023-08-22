@@ -1,28 +1,28 @@
 // import { CartItemInterface } from "@/types/cart";
 
-// export const cartComparison = (arr1: CartItemInterface[], arr2: CartItemInterface[]) => {
-//     // Step 1: Check if lengths are equal
-//     if (arr1.length !== arr2.length) {
-//       return false;
-//     }
+export const compareArraysByObjectID = (arr1: any[], arr2: any[]) => {
+    // Step 1: Check if lengths are equal
+    if (arr1.length !== arr2.length) {
+      return false;
+    }
   
-//     // Step 2: Sort both arrays based on the 'id' property
-//     const sortedArr1 = arr1.slice().sort((a, b) => a.id.localeCompare(b.id));
-//     const sortedArr2 = arr2.slice().sort((a, b) => a.id.localeCompare(b.id));
+    // Step 2: Sort both arrays based on the 'id' property
+    const sortedArr1 = arr1.slice().sort((a, b) => a._id.localeCompare(b._id));
+    const sortedArr2 = arr2.slice().sort((a, b) => a._id.localeCompare(b._id));
   
-//     // Step 3: Compare each object's 'id' and 'count' properties
-//     for (let i = 0; i < sortedArr1.length; i++) {
-//       const obj1 = sortedArr1[i];
-//       const obj2 = sortedArr2[i];
+    // Step 3: Compare each object's 'id' and 'count' properties
+    for (let i = 0; i < sortedArr1.length; i++) {
+      const obj1 = sortedArr1[i];
+      const obj2 = sortedArr2[i];
   
-//       if (obj1.id !== obj2.id || obj1.count !== obj2.count) {
-//         return false;
-//       }
-//     }
+      if (obj1._id !== obj2._id || obj1.count !== obj2.count) {
+        return false;
+      }
+    }
   
-//     // Step 4: Arrays are equal
-//     return true;
-//   }
+    // Step 4: Arrays are equal
+    return true;
+  }
 
   export const stringArrayComparison = (arr1: string[], arr2: string[]) => {
     // Step 1: Check if arrays have the same length

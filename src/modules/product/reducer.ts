@@ -1,11 +1,12 @@
 import {createReducer, combineReducers} from '@reduxjs/toolkit'
-import { setFilters, setAppliedFilters, setProducts, setProductFormError } from './actions'
+import { setFilters, setAppliedFilters, setProducts, setProductFormError, deleteProduct } from './actions'
 import { RootState } from '@/app/store'
 import { FiltersInterface } from '@/types/filter'
 import { PlantInterface } from '@/types/product'
 
 const products = createReducer(<PlantInterface[]>[], (builder) => {
     builder.addCase(setProducts, (state, {payload}) => payload)
+    builder.addCase(deleteProduct, (state, {payload}) => {return state.filter((obj: any) => obj._id !== payload)})
 })
 
 const filters = createReducer(<FiltersInterface | null>null, (builder) => {

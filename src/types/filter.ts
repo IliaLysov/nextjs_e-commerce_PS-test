@@ -1,14 +1,15 @@
 export interface FiltersInterface {
     price?: PriceInterface
-    count?: CountInterface
+    count?: number
     id?: IdInterface
 }
 
 export type PriceInterface = {min: number, max: number}
-export type CountInterface = {min: number, max: number}
+// export type CountInterface = {min: number, max: number}
 export type IdInterface = string[]
 
 export enum FiltersNameEnum {
+    count = 'count',
     price = 'price',
     id = 'id'
 }

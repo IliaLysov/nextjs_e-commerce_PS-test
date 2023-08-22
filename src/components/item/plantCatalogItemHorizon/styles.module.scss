@@ -17,10 +17,6 @@
             box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1)
         }
     }
-
-    @include phones600 {
-        border-radius: 20px;
-    }
 }
 
 .side {
@@ -37,12 +33,7 @@
 .image {
     height: 100%;
     width: auto;
-    border-radius: 15px;
     cursor: pointer;
-
-    @include phones600 {
-        border-radius: 20px;
-    }
 }
 
 .info {
@@ -142,10 +133,6 @@
     stroke: white;
     stroke-width: 1px;
 
-    @include phones600 {
-        width: 30px;
-    }
-
     &.active {
         fill: rgba(255, 0, 0, 0.7);
     }
@@ -167,30 +154,14 @@
     display: flex;
     align-items: center;
     border: 1px solid $main;
-    height: 40px;
+    height: 30px;
     border-radius: 20px;
-    width: 180px;
+    // width: 120px;
 
-    @include phones600 {
-        width: 140px;
-    }
-
-    transition: width .3s;
-
-       &::after {
-        content: '';
-        right: 0;
-        // background-color: black;
-        position: relative;
-        width: 40px;
-        height: 40px;
-        z-index: -10;
-    }
+    transition: border .3s;
 
     &.active {
         border: 1px solid $second;
-
-        width: 40px;
 
         & .orderBtn {
             background-color: $second;
@@ -204,37 +175,40 @@
 
 .price {
     position: relative;
-    font-size: $littleFont;
+    font-size: $smallFont;
     font-weight: 600;
     text-align: center;
     flex: 1;
     white-space: nowrap;
+    padding: 0 15px;
 
-    @include phones600 {
-        font-size: $smallFont;
-
-    }
+    transition: color .3s;
 }
 
 .orderBtn {
     all: unset;
-
-    position: absolute;
-    right: 0;
-    // top: 0;
     cursor: pointer;
     background-color: $main;
-    height: 40px;
-    width: 40px;
+    height: 30px;
+    width: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
+
+    transition: background-color .3s;
+
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            background-color: $second;
+        }
+    }
 }
 
 .orderIcon {
     stroke: white;
     height: auto;
-    width: 20px;
+    width: 18px;
     stroke-width: 1.5px;
+    padding-left: 1px;
 }

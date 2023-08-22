@@ -3,6 +3,8 @@ import { addToCartPost, removeFromCartPost } from './sagaActions'
 import { CartDBItemInterface, CartItemInterface } from '@/types/cart'
 import { addToCart, removeFromCart } from './actions'
 import CartService from '@/services/cart'
+import { PlantOwnerTypeEnum } from '@/types/product'
+import { cartProductsGet, deleteProduct, filtersSelector, setAppliedFilters } from '..'
 
 function* addToCartPostSaga(action: ReturnType<typeof addToCartPost>): Generator {
     try {
@@ -17,11 +19,16 @@ function* addToCartPostSaga(action: ReturnType<typeof addToCartPost>): Generator
 
 function* removeFromCartPostSaga(action: ReturnType<typeof removeFromCartPost>): Generator {
     try {
-        const {cartId, productId} = action.payload
+        const {cartId, productId} = action.payload.cart
+        const body = action.payload.body
         if (cartId) {
             yield call(CartService.remove, cartId)
+            yield put(removeFromCart(productId))
+            if (body) {
+                yield put(cartProductsGet(body))
+            }
         }
-        yield put(removeFromCart(productId))
+        
     } catch(e: any) {
         console.log(e)
     }

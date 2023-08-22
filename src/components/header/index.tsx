@@ -69,7 +69,7 @@ export default function Header() {
                     </Link>
                     <Link href='/favorites' className={[styles.navLink, pathname.endsWith('favorites') && styles.active].join(' ')}>
                         <FavoritesSVG className={styles.navIcon} />
-                        <div className={styles.navTitle}>Избранные</div>
+                        <div className={styles.navTitle}>Любимые</div>
                         <div className={[styles.notification, favorites.length > 0 && styles.active].join(' ')}>{favorites.length}</div>
                     </Link>
                     <Link href='/cart' className={[styles.navLink, pathname.endsWith('cart') && styles.active].join(' ')}>
@@ -116,7 +116,7 @@ export default function Header() {
                 </Link>
                 <Link href='/favorites' className={[styles.navLink, pathname.endsWith('favorites') && styles.active].join(' ')}>
                     <FavoritesSVG className={styles.navIcon} />
-                    <div className={styles.navTitle}>Избранные</div>
+                    <div className={styles.navTitle}>Любимые</div>
                     <div className={[styles.notification, favorites.length > 0 && styles.active].join(' ')}>{favorites.length}</div>
                 </Link>
                 <Link href='/account' className={[styles.navLink, pathname.endsWith('account') && styles.active].join(' ')}>
