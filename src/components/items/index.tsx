@@ -236,9 +236,6 @@ export default function Items({type,}: {type: PlantOwnerType}) {
 
     const [horizon, setHorizon] = useState(false)
 
-    console.log('items.length', items.length)
-    console.log('appliedFilters?.count', appliedFilters?.count)
-
     return (
         <>
             <div className={styles.top}>
