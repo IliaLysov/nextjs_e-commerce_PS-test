@@ -234,7 +234,7 @@ export default function Items({type,}: {type: PlantOwnerType}) {
         }
     }, [favorites])
 
-    const [horizon, setHorizon] = useState(false)
+    const [horizon, setHorizon] = useState(true)
 
     return (
         <>

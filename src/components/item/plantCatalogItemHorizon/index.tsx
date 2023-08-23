@@ -32,8 +32,8 @@ export default function PlantCatalogItemHorizon({item, profile, handleCart, inCa
             <div className={styles.side}>
                 <div className={styles.imageWrapper}>
                     <img src={item.images[0].location} alt="plant" className={styles.image} onClick={() => linkTo(item)}/>
-                    <div className={styles.companyLogoWrapper}>
-                        <img src={item.companyInfo.logo} alt="comapny" className={styles.companyLogo} onClick={() => profile(item.companyInfo.latinName)}/>
+                    <div className={styles.companyLogoWrapper} onClick={() => profile(item.companyInfo.latinName)}>
+                        <img src={item.companyInfo.logo} alt="comapny" className={styles.companyLogo}/>
                     </div>
                 </div>
                 <div className={styles.info}>

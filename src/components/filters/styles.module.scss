@@ -35,6 +35,7 @@
     margin-bottom: 10px;
     color: $someGrey;
     
+    transition: background-color .3s, color .3s, border .3s;
     
     &.active {
         cursor: pointer;
@@ -42,9 +43,19 @@
         border: 1px solid $main;
         color: white;
 
+        &:hover {
+            background-color: $main2;
+            color: $main;
+        }
+
         &.resetBtn {
-            background-color: $second;
-            border: 1px solid $second;
+            background-color: $main2;
+            border: 1px solid $main2;
+            color: $main;
+
+            &:hover {
+                background-color: white;
+            }
         }
     }
 }

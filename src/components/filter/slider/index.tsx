@@ -72,10 +72,12 @@ export default function CustomSlider({title, min, max, label, value, setNewFilte
     return (
         <div className={styles.wrapper}>
             <h3 className={styles.title}>{title}</h3>
-            <Slider min={min} max={max} getAriaLabel={() => label} value={currentSliderVal} onChange={handleChangeSlider} onChangeCommitted={handleChangeCommitedSlider}/>
-            <div className={styles.counts}>
-                <input className={styles.input} type="number" name="min" id="min" value={currentVal.min} onChange={e => setCurrentVal(prev => {return {min: e.target.value, max: prev.max}})} onBlur={() => handleChange('min', Number(currentVal.min))} onKeyDown={handlekeyPress}/>
-                <input className={styles.input} type="number" name="max" id="max" value={currentVal.max} onChange={e => setCurrentVal(prev => {return {min: prev.min, max: e.target.value}})} onBlur={() => handleChange('max', Number(currentVal.max))} onKeyDown={handlekeyPress}/>
+            <div className={styles.container}>
+                <Slider min={min} max={max} getAriaLabel={() => label} value={currentSliderVal} onChange={handleChangeSlider} onChangeCommitted={handleChangeCommitedSlider}/>
+                <div className={styles.counts}>
+                    <input className={styles.input} type="number" name="min" id="min" value={currentVal.min} onChange={e => setCurrentVal(prev => {return {min: e.target.value, max: prev.max}})} onBlur={() => handleChange('min', Number(currentVal.min))} onKeyDown={handlekeyPress}/>
+                    <input className={styles.input} type="number" name="max" id="max" value={currentVal.max} onChange={e => setCurrentVal(prev => {return {min: prev.min, max: e.target.value}})} onBlur={() => handleChange('max', Number(currentVal.max))} onKeyDown={handlekeyPress}/>
+                </div>
             </div>
         </div>
     )

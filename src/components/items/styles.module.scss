@@ -25,7 +25,7 @@
     border-radius: 15px;
     padding-bottom: 1px;
     cursor: pointer;
-    transition: background-color .3s;
+    transition: background-color .3s, border .3s;
 
     margin-right: 20px;
 
@@ -34,7 +34,8 @@
     }
 
     &.active {
-        background-color: $someGrey;
+        border: 1px solid $lightGrey;
+        background-color: $lightGrey;
     }
 
     @include phones600 {
@@ -81,28 +82,16 @@
         height: 100%;
         right: 0;
         width: 50%;
-        background-color: $main;
+        background-color: $main2;
         z-index: -10;
         border-radius: 50%;
         
         transition: right .3s;
     }
 
-    & .right {
-        fill: white;
-    }
-
     &.active {
         &::before {
             right: 50%;
-        }
-
-        & .left {
-            fill: white;
-        }
-
-        & .right {
-            fill: $grey;
         }
     }
 }
@@ -118,10 +107,9 @@
 .tileSwitchIcon {
     height: auto;
     width: 20px;
-    fill: $grey;
-    stroke-width: 1.5px;
-
-    transition: fill .3s;
+    stroke-width: 1px;
+    stroke: $main;
+    fill: white;
 }
 
 .wrapper {
@@ -226,7 +214,7 @@
     box-sizing: border-box;
     padding-bottom: 1px;
     cursor: pointer;
-    color: $graphite;
+    color: $main;
 
     margin-top: 20px;
 
@@ -237,10 +225,10 @@
     font-weight: 700;
     font-size: $smallFont;
 
-    border: .5px solid $lightGrey;
+    border: .5px solid $main2;
 
     transition: background-color .3s;
-    background-color: $lightGrey;
+    background-color: $main2;
 
     &:hover {
         background-color: white;

@@ -40,7 +40,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    margin-left: 20px;
+    margin-left: 25px;
     margin-top: 10px;
     margin-bottom: 10px;
     padding-right: 40px;
@@ -86,23 +86,29 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    // border: 1px solid $main2;
+
     transform: translate(50%, -50%);
 
-    
-}
-
-.companyLogo {
-    height: 30px;
-    width: 30px;
-    border-radius: 50%;
     cursor: pointer;
-
     transition: box-shadow .3s;
+
+
     @media (hover: hover) and (pointer: fine) {
         &:hover {
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4)
         }
     }
+    
+}
+
+.companyLogo {
+    height: 34px;
+    width: 34px;
+    border-radius: 50%;
+
+    
 }
 
 .companyName {
@@ -129,15 +135,16 @@
 
     width: 25px;
     height: auto;
-    fill: rgba(0, 0, 0, 0.4);
-    stroke: white;
-    stroke-width: 1px;
+    fill: $main2;
+    // stroke: $main;
+    // stroke-width: 1px;
 
     &.active {
-        fill: rgba(255, 0, 0, 0.7);
+        // stroke: red;
+        fill: red;
     }
 
-    transition: transform .3s;
+    transition: transform .3s, fill .3s, stroke .3s;
 
     @media (hover: hover) and (pointer: fine) {
         &:hover {
@@ -161,14 +168,18 @@
     transition: border .3s;
 
     &.active {
-        border: 1px solid $second;
+        border: 1px solid $main2;
 
         & .orderBtn {
-            background-color: $second;
+            background-color: $main2;
         }
 
         & .price {
             color: $grey;
+        }
+
+        & .orderIcon {
+            stroke: $main;
         }
     }
 }
@@ -200,7 +211,11 @@
 
     @media (hover: hover) and (pointer: fine) {
         &:hover {
-            background-color: $second;
+            background-color: $main2;
+
+            & .orderIcon {
+                stroke: $main;
+            }
         }
     }
 }
@@ -211,4 +226,6 @@
     width: 18px;
     stroke-width: 1.5px;
     padding-left: 1px;
+
+    transition: stroke .3s;
 }

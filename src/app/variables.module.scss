@@ -1,10 +1,11 @@
 //colors
 $main: #508F00;
+$main2: #E3F0D1;
 $second: #53595A;
 $graphite: #484848;
 $grey: #A1A1A1;
 $someGrey: #DEDEDE;
-$lightGrey: #eaeaea;
+$lightGrey: #f1f1f1;
 
 
 //fonts
@@ -24,6 +25,7 @@ $phones600: 600px;
 
 :export {
     main: $main;
+    main2: $main2;
     second: $second;
 
 

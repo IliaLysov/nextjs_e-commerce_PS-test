@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 import LogoSVG from '@/icons/Logo.svg'
+import LogoFSVG from '@/icons/LogoF.svg'
 import CatalogSVG from '@/icons/Catalog.svg'
 import SearchSVG from '@/icons/Search.svg'
 import FavoritesSVG from '@/icons/Like.svg'
@@ -66,8 +67,8 @@ export default function Header() {
         <>
             <header className={[styles.wrapper, styles.top].join(' ')}>
                 <div className={styles.side}>
-                    <Link href='/' className={styles.logo}>
-                        <LogoSVG className={styles.logoIcon}/>
+                    <Link href='/' className={[styles.logo, pathname.endsWith('/') && styles.active].join(' ')}>
+                        <LogoFSVG className={styles.logoIcon}/>
                     </Link>
                     <input className={styles.search} type='text' id='name' placeholder='Поиск растений и питомников'/>
                 </div>
@@ -121,7 +122,7 @@ export default function Header() {
                     <div className={[styles.notification, cart.length > 0 && styles.active].join(' ')}>{cart.length}</div>
                 </Link>
                 <Link href='/' className={[styles.logo, pathname.endsWith('/') && styles.active].join(' ')}>
-                    <LogoSVG className={styles.logoIcon}/>
+                    <LogoFSVG className={styles.logoIcon}/>
                 </Link>
                 <Link href='/favorites' className={[styles.navLink, pathname.endsWith('favorites') && styles.active].join(' ')}>
                     <FavoritesSVG className={styles.navIcon} />
