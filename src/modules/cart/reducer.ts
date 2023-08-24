@@ -1,7 +1,8 @@
 import {createReducer, combineReducers} from '@reduxjs/toolkit'
-import { addToCart, removeFromCart, setCart } from './actions'
+import { addToCart, removeFromCart, setCart, setCartInfo, setCartItems } from './actions'
 import { RootState } from '@/app/store'
-import { CartDBItemInterface } from '@/types/cart'
+import { CartDBItemInterface, CartInfoInterface } from '@/types/cart'
+import { PlantInterface } from '@/types/product'
 
 const cart = createReducer<CartDBItemInterface[]>([], (builder) => {
     builder
@@ -11,10 +12,26 @@ const cart = createReducer<CartDBItemInterface[]>([], (builder) => {
         .addDefaultCase((state) => state)
 })
 
-const cartSelector = (state: RootState) => state.rootReducer.cart.cart
+const cartItems = createReducer<PlantInterface[] | null>(null, (builder) => {
+    builder.addCase(setCartItems, (state, {payload}) => payload)
+})
 
-export {cartSelector}
+const cartInfo = createReducer<CartInfoInterface | null>(null, (builder) => {
+    builder.addCase(setCartInfo, (state, {payload}) => payload)
+})
 
 export default combineReducers({
     cart,
+    cartItems,
+    cartInfo
 })
+
+const cartSelector = (state: RootState) => state.rootReducer.cart.cart
+const cartItemsSelector = (state: RootState) => state.rootReducer.cart.cartItems
+const cartInfoSelector = (state: RootState) => state.rootReducer.cart.cartInfo
+
+export {
+    cartSelector,
+    cartItemsSelector,
+    cartInfoSelector
+}

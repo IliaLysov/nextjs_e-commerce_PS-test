@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 import { getServerSession } from 'next-auth/next'
-import { options } from "../auth/[...nextauth]/options"
+import { options } from "@/app/api/auth/[...nextauth]/options"
 import { Types } from "mongoose"
 
 import dbConnect from "@/lib/dbConnect"

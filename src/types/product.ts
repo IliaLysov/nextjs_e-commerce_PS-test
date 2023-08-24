@@ -22,6 +22,7 @@ export interface PlantFormInterface {
 }
 
 export interface PlantInterface {
+    _id: string;
     name: string;
     latinName: string;
     description?: string;

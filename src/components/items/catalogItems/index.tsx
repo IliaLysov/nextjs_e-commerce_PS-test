@@ -2,7 +2,7 @@
 
 import styles from './styles.module.scss'
 import {useState, useEffect} from 'react'
-import { Filters, PlantCatalogItemTile, PlantCatalogItemHorizon, PlantCompanyItemTile, PlantCompanyItemHorizon } from '..'
+import { Filters, PlantCatalogItemTile, PlantCatalogItemHorizon, PlantCompanyItemTile, PlantCompanyItemHorizon } from '../..'
 import { useAppDispatch, useAppSelector } from '@/app/store'
 import { filtersSelector, appliedFiltersSelector, setAppliedFilters, allProductsGet, ownProductsGet, productsSelector, setModal, setFilters, setProducts, modalSelector, setProduct, cartSelector, removeFromCartPost, addToCartPost, removeFromCart, addToCart, favoritesSelector, removeFromFavoritesPost, addToFavoritesPost, removeFromFavorites, addToFavorites, favoritesProductsGet, cartProductsGet, deleteProduct } from '@/modules'
 import { FiltersInterface } from '@/types/filter'
@@ -21,7 +21,7 @@ import TileSVG from '@/icons/Tile.svg'
 import HorizonSVG from '@/icons/Horizon.svg'
 import { compareArraysByObjectID, compareObjects } from '@/utils/compare'
 
-export default function Items({type,}: {type: PlantOwnerType}) {
+export default function CatalogItems({type,}: {type: PlantOwnerType}) {
     const {data: session} = useSession()
     const dispatch = useAppDispatch()
     const router = useRouter()

@@ -8,3 +8,8 @@ export interface CartDBItemInterface {
     productId: string,
     count: number
 }
+
+export interface CartInfoInterface {
+    count: number,
+    price: number
+}
