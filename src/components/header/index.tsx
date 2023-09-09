@@ -18,9 +18,8 @@ import { usePathname } from 'next/navigation'
 import {useSession} from 'next-auth/react'
 import { useState, useRef, useEffect } from 'react'
 
-import userImg from '@/images/user-default.png'
 import { useAppDispatch, useAppSelector } from '@/app/store'
-import { cartSelector, favoritesSelector, setCart, setFavorites } from '@/modules'
+import { cartSelector, favoritesSelector, pendingSelector, setCart, setFavorites, setPending } from '@/modules'
 
 
 export default function Header() {
@@ -29,6 +28,7 @@ export default function Header() {
     
     const cart = useAppSelector(cartSelector)
     const favorites = useAppSelector(favoritesSelector)
+    const pending = useAppSelector(pendingSelector)
     
     const pathname = usePathname()
     
@@ -36,19 +36,26 @@ export default function Header() {
     
     const menuRef = useRef<HTMLDivElement>(null)
     const userRef = useRef<HTMLDivElement>(null)
+
+    useEffect(() => {
+        dispatch(setPending(false))
+    }, [session])
+
     
     useEffect(() => {
-        if (session) {
-            session.cart && dispatch(setCart(session.cart))
-            session.favorites && dispatch(setFavorites(session.favorites))
-        } else {
-            const cart = localStorage.getItem('localCart')
-            if (cart) {
-                dispatch(setCart(JSON.parse(cart)))
-            }
-            const favorites = localStorage.getItem('localFavorites')
-            if (favorites) {
-                dispatch(setFavorites(JSON.parse(favorites)))
+        if (!pending) {
+            if (session) {
+                session.cart && dispatch(setCart(session.cart))
+                session.favorites && dispatch(setFavorites(session.favorites))
+            } else {
+                const cart = localStorage.getItem('localCart')
+                if (cart) {
+                    dispatch(setCart(JSON.parse(cart)))
+                }
+                const favorites = localStorage.getItem('localFavorites')
+                if (favorites) {
+                    dispatch(setFavorites(JSON.parse(favorites)))
+                }
             }
         }
     }, [session])

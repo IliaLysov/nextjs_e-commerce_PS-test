@@ -1,17 +1,17 @@
 import Header from './header'
 import ModalWindow from './modal'
 import Filters from './filters'
-import { CatalogItems, CartItems } from './items'
-import {PlantCatalogItemTile, PlantCatalogItemHorizon, PlantCompanyItemTile, PlantCompanyItemHorizon} from './item'
+import { CatalogItems } from './items'
+import {PlantCatalogItemTile, PlantCatalogItemHorizon, PlantCompanyItemTile, PlantCompanyItemHorizon, PlantCartItem} from './item'
 
 export {
     Header,
     ModalWindow,
     Filters,
     CatalogItems,
-    CartItems,
     PlantCatalogItemTile,
     PlantCatalogItemHorizon,
     PlantCompanyItemTile,
-    PlantCompanyItemHorizon
+    PlantCompanyItemHorizon,
+    PlantCartItem
 }

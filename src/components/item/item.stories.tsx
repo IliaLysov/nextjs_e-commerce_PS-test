@@ -4,7 +4,7 @@ import '@/app/font.scss'
 import '@/app/globals.scss'
 import {useState} from 'react'
 
-import {PlantCatalogItemTile, PlantCatalogItemHorizon, PlantCompanyItemTile, PlantCompanyItemHorizon} from "."
+import {PlantCatalogItemTile, PlantCatalogItemHorizon, PlantCompanyItemTile, PlantCompanyItemHorizon, PlantCartItem} from "."
 
 const meta: Meta<typeof PlantCatalogItemTile> = {
     title: 'Item',
@@ -60,5 +60,14 @@ export const companyItemHorizon = () => {
 
     return (
         <PlantCompanyItemTile item={item} profile={() => null} linkTo={null}/>
+    )
+}
+
+export const cartItem = () => {
+    const [inCart, setInCart] = useState(false)
+    const [isFavirite, setFavorite] = useState(false)
+
+    return (
+        <PlantCartItem item={item} profile={() => null} handleCart={(item: any) => setInCart(prev => !prev)} inCart={inCart} handleFavorite={(item: any) => setFavorite(prev => !prev)} inFavorite={isFavirite} linkTo={false}/>
     )
 }

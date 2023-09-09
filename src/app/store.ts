@@ -1,6 +1,6 @@
 import { Store, configureStore } from "@reduxjs/toolkit"
 import createSagaMiddleware, {Task} from 'redux-saga'
-import rootReducer from '@/modules'
+import rootReducer, { catalogSaga } from '@/modules'
 import { companySaga } from "@/modules"
 import { productSaga } from "@/modules"
 import { cartSaga } from "@/modules"
@@ -34,6 +34,7 @@ sagaMiddleware.run(companySaga)
 sagaMiddleware.run(productSaga)
 sagaMiddleware.run(cartSaga)
 sagaMiddleware.run(favoritesSaga)
+sagaMiddleware.run(catalogSaga)
 
 
 

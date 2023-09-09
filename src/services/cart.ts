@@ -19,16 +19,6 @@ export default class CartService {
         return await response.json()
     }
 
-    static async getItems({skip, ids}: {skip: number, ids: string[] | null}) {
-        console.log('getItems skip, ids', skip, ids)
-        const response = await fetch('/api/cart/products', {
-            headers: {"Content-Type": "application/json"},
-            method: 'POST',
-            body: JSON.stringify({skip, ids})
-        })
-        return await response.json()
-    }
-
     static async update(cartInfo: {cartId: string, count: number}) {
 
     }

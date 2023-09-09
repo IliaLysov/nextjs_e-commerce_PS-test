@@ -13,6 +13,19 @@ import YCUploadDto from '@/dtos/YC-upload-dto'
 
 export async function POST(request: Request) {
     try {
+        const {skip, ids}: {skip: number, ids: string[]} = await request.json()
+        await dbConnect()
+        const idsArray: Types.ObjectId[] = ids.map((item: string) => new Types.ObjectId(item))
+        const products = await PlantSchema.find({_id: {$in: idsArray}}).limit(10).skip(skip)
+   
+        return NextResponse.json(products)
+    } catch (e: any) {
+        console.log(e)
+    }
+}
+
+export async function PUT(request: Request) {
+    try {
         const session: any = await getServerSession(options) //работает, но с предупреждением экспериментального функионала
         await dbConnect()
 

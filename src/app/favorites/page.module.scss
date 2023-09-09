@@ -1,0 +1,179 @@
+@import '@/app/main';
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    // margin-bottom: 40px;
+}
+
+.top {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    user-select: none;
+}
+
+.topSide {
+    display: flex;
+    align-items: center;
+}
+
+.topBtn {
+    font-size: $smallFont;
+    font-weight: 700;
+    height: 30px;
+    padding: 0 20px;
+    border: 1px solid $someGrey;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    padding-bottom: 1px;
+    cursor: pointer;
+    transition: background-color .3s, border .3s;
+
+    margin-right: 20px;
+
+    &:last-child {
+        margin-right: 0;
+    }
+
+    &.active {
+        border: 1px solid $lightGrey;
+        background-color: $lightGrey;
+    }
+
+    @include phones600 {
+        height: 40px;
+        width: 40px;
+        padding: 0;
+        border-radius: 50%;
+    }
+}
+
+.topBtnName {
+    @include phones600 {
+        display: none;
+    }
+}
+
+
+
+.topBtnIcon {
+    height: auto;
+    width: 20px;
+    display: none;
+    fill: none;
+    stroke: $darkGrey;
+    stroke-width: 1.5px;
+    @include phones600 {
+        display: block;
+    }
+}
+
+.tileSwitch {
+    position: relative;
+    height: 40px;
+    // border: 1px solid $main;
+    border-radius: 15px;
+    width: 80px;
+    display: flex;
+    overflow: hidden;
+
+    
+    &::before {
+        position: absolute;
+        content: '';
+        height: 100%;
+        right: 0;
+        width: 50%;
+        background-color: $main2;
+        z-index: -10;
+        border-radius: 50%;
+        
+        transition: right .3s;
+    }
+
+    &.active {
+        &::before {
+            right: 50%;
+        }
+    }
+}
+
+.tile {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.tileSwitchIcon {
+    height: auto;
+    width: 20px;
+    stroke-width: 1px;
+    stroke: $main;
+    fill: white;
+}
+
+.items {
+    display: grid;
+    grid-template-columns: [col-start] repeat(5, 1fr) [col-end];
+
+    column-gap: 30px;
+    row-gap: 40px;
+
+    &.horizon {
+        display: flex;
+        flex-direction: column;
+        row-gap: 20px;
+    }
+
+
+    @include desktop1650 {
+        grid-template-columns: [col-start] repeat(4, 1fr) [col-end];
+    }
+
+    @include desktop1350 {
+        grid-template-columns: [col-start] repeat(3, 1fr) [col-end];
+    }
+
+    @include desktop1100 {
+        grid-template-columns: [col-start] repeat(2, 1fr) [col-end];
+    }
+
+    @include tablets850 {
+        grid-template-columns: [col-start] repeat(1, 1fr) [col-end];
+    }
+}
+
+.moreBtn {
+    all: unset;
+    width: 100%;
+    height: 30px;
+    border-radius: 15px;
+    box-sizing: border-box;
+    padding-bottom: 1px;
+    cursor: pointer;
+    color: $main;
+
+    margin-top: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: 700;
+    font-size: $smallFont;
+
+    border: .5px solid $main2;
+
+    transition: background-color .3s;
+    background-color: $main2;
+
+    &:hover {
+        background-color: white;
+    }
+}

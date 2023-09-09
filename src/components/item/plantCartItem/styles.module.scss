@@ -1,1 +1,231 @@
 @import '@/app/main';
+
+.wrapper {
+    position: relative;
+    height: 120px;
+    border: 1px solid $someGrey;
+    border-radius: 15px;
+    overflow: hidden;
+
+    display: flex;
+    justify-content: space-between;
+
+    transition: box-shadow .3s;
+
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1)
+        }
+    }
+}
+
+.side {
+    height: 100%;
+    display: flex;
+}
+
+.imageWrapper {
+    position: relative;
+    height: 100%;
+    width: fit-content;
+}
+
+.image {
+    height: 100%;
+    width: auto;
+    cursor: pointer;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 25px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-right: 40px;
+}
+
+.plantNames {
+    display: flex;
+    flex-direction: column;
+}
+
+.name {
+    font-size: $littleFont;
+    font-weight: 600;
+    margin-bottom: 5px;
+    cursor: pointer;
+    transition: color .3s;
+
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            color: $main;
+        }
+    }
+
+    @include phones600 {
+        font-size: $smallFont;
+        font-weight: 700;
+    }
+}
+
+.latinName {
+    font-size: $smallFont;
+    color: $grey;
+}
+
+.companyLogoWrapper {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    height: 40px;
+    width: 40px;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    // border: 1px solid $main2;
+
+    transform: translate(50%, -50%);
+
+    cursor: pointer;
+    transition: box-shadow .3s;
+
+
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4)
+        }
+    }
+    
+}
+
+.companyLogo {
+    height: 34px;
+    width: 34px;
+    border-radius: 50%;
+
+    
+}
+
+.companyName {
+    font-size: $smallFont;
+    color: $grey;
+    margin-left: 6px;
+}
+
+.rightSide {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+.like {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+
+    width: 25px;
+    height: auto;
+    fill: $main2;
+    // stroke: $main;
+    // stroke-width: 1px;
+
+    &.active {
+        // stroke: red;
+        fill: red;
+    }
+
+    transition: transform .3s, fill .3s, stroke .3s;
+
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            transform: scale(120%);
+        }
+    }
+}
+
+.orderInfo {
+    overflow: hidden;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    display: flex;
+    align-items: center;
+    border: 1px solid $main;
+    height: 30px;
+    border-radius: 20px;
+    // width: 120px;
+
+    transition: border .3s;
+
+    &.active {
+        border: 1px solid $main2;
+
+        & .orderBtn {
+            background-color: $main2;
+        }
+
+        & .price {
+            color: $grey;
+        }
+
+        & .orderIcon {
+            stroke: $main;
+        }
+    }
+}
+
+.price {
+    position: relative;
+    font-size: $smallFont;
+    font-weight: 600;
+    text-align: center;
+    flex: 1;
+    white-space: nowrap;
+    padding: 0 15px;
+
+    transition: color .3s;
+}
+
+.orderBtn {
+    all: unset;
+    cursor: pointer;
+    background-color: $main;
+    height: 30px;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+
+    transition: background-color .3s;
+
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            background-color: $main2;
+
+            & .orderIcon {
+                stroke: $main;
+            }
+        }
+    }
+}
+
+.orderIcon {
+    stroke: white;
+    height: auto;
+    width: 18px;
+    stroke-width: 1.5px;
+    padding-left: 1px;
+
+    transition: stroke .3s;
+}

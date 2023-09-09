@@ -1,0 +1,133 @@
+@import '@/app/main';
+
+.wrapper {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+
+    @include tablets850 {
+        display: block;
+    }
+}
+
+.orderWrapper {
+    display: none;
+    @include tablets850 {
+        margin-bottom: 40px;
+    }
+
+    &.more {
+        display: block;
+    }
+
+    @include tablets850 {
+        &.more {
+            display: none;
+        }
+        &.less {
+            display: block;
+        }
+    }
+}
+
+.order {
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+    padding: 20px 30px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+
+    @include tablets850 {
+        margin-right: 0;
+    }
+
+    @include phones600 {
+        min-width:auto;
+    }
+}
+
+.orderContent {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 20px;
+    
+    @include tablets850 {
+        align-items: center;
+        flex-direction: unset;
+        justify-content: space-between;
+    }
+
+    @include phones600 {
+        flex-direction: column;
+        align-items: flex-start;
+
+    }
+}
+
+.orderTitle {
+    font-size: $averageFont;
+    padding-bottom: 20px;
+    color: $graphite;
+    border-bottom: 1px solid $main2;
+}
+
+.price {
+    font-weight: 700;
+    color: $main;
+    font-size: $averageFont;
+
+    @include phones600 {
+        margin-bottom: 10px;
+    }
+}
+
+.count {
+    font-size: $smallFont;
+    font-weight: 500;
+    color: $darkGrey;
+    margin-bottom: 10px;
+
+    @include phones600 {
+        margin-bottom: 15px;
+    }
+}
+
+
+.orderBtn {
+    all: unset;
+    box-sizing: border-box;
+    font-size: $smallFont;
+    font-weight: 700;
+    color: white;
+    background-color: $main;
+    border-radius: 10px;
+    padding: 10px 20px;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid $main;
+    transition: background-color .3s, color .3s;
+
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            background-color: white;
+            color: $main;
+        }
+    }
+
+    @include phones600 {
+        width: 100%;
+    }
+}
+
+.items {
+    flex: 1;
+    margin-right: 20px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+
+    @include tablets850 {
+        margin-right: 0;
+    }
+}

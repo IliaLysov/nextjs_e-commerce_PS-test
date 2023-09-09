@@ -25,7 +25,7 @@ export default combineReducers({
     products,
     filters,
     appliedFilters,
-    productFormError
+    productFormError,
 })
 
 

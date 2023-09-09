@@ -181,18 +181,13 @@ export default function CatalogItems({type,}: {type: PlantOwnerType}) {
         const currentCartItem = cart.find(obj => obj.productId === _id)       
         if (session) {
             if (currentCartItem) {
-                dispatch(removeFromCartPost({cart: currentCartItem, body: type === PlantOwnerTypeEnum.Cart ? {skip: 0, appliedFilters: appliedFilters, sort: {}} : null}))
-
-                // if (type === PlantOwnerTypeEnum.Cart) {
-                //     dispatch()
-                // }
+                dispatch(removeFromCartPost(currentCartItem))
             } else {
                 dispatch(addToCartPost({productId: _id, count: 1}))
             }
         } else {
             if (currentCartItem) {
                 dispatch(removeFromCart(currentCartItem.productId))
-                dispatch(deleteProduct(currentCartItem.productId))
             } else {
                 dispatch(addToCart({productId: _id, count: 1}))
             }
@@ -213,14 +208,13 @@ export default function CatalogItems({type,}: {type: PlantOwnerType}) {
         const currentFavoritesItem = favorites.find(obj => obj.productId === _id)       
         if (session) {
             if (currentFavoritesItem) {
-                dispatch(removeFromFavoritesPost({favorites: currentFavoritesItem, body: type === PlantOwnerTypeEnum.Favorites ? {skip: 0, appliedFilters: appliedFilters, sort: {}} : null}))
+                dispatch(removeFromFavoritesPost(currentFavoritesItem))
             } else {
                 dispatch(addToFavoritesPost(_id))
             }
         } else {
             if (currentFavoritesItem) {
                 dispatch(removeFromFavorites(currentFavoritesItem.productId))
-                dispatch(deleteProduct(currentFavoritesItem.productId))
             } else {
                 dispatch(addToFavorites({productId: _id}))
             }
