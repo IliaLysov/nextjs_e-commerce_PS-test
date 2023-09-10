@@ -8,6 +8,21 @@ import dbConnect from "@/lib/dbConnect"
 import CartSchema from '@/schemas/cart'
 import CartDto from '@/dtos/cart-dto'
 
+export async function PATCH(request: Request) {
+    try {
+        const body = await request.json()
+        const {count, cartId} = body
+        const session: any = await getServerSession(options)
+        await dbConnect()
+
+        const response = await CartSchema.updateOne({userId: new Types.ObjectId(session.user.id), _id: new Types.ObjectId(cartId)}, {count})
+        
+        return NextResponse.json(response)
+    } catch (e: any) {
+        console.log(e)
+    }
+}
+
 export async function POST(request: Request) {
     try {
         const {productId, count} = await request.json()

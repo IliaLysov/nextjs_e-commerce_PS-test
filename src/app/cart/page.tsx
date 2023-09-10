@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { useAppDispatch, useAppSelector } from '@/app/store'
-import { addToCart, addToCartPost, addToFavorites, addToFavoritesPost, cartItemsSelector, cartSelector, deleteProduct, favoritesSelector, getCartItems, pendingSelector, removeFromCart, removeFromCartPost, removeFromFavorites, removeFromFavoritesPost, setModal, setProduct } from '@/modules'
+import { addToCart, addToCartPost, addToFavorites, addToFavoritesPost, cartItemsSelector, cartSelector, changeCartCount, changeCartCountPost, deleteProduct, favoritesSelector, getCartItems, getMoreCartItems, pendingSelector, removeFromCart, removeFromCartPost, removeFromFavorites, removeFromFavoritesPost, setModal, setProduct } from '@/modules'
 import { PlantInterface, PlantOwnerTypeEnum } from '@/types/product'
 import { CartDBItemInterface, CartInfoInterface, CartItemInterface } from '@/types/cart'
 import { PlantCartItem } from '@/components'
@@ -18,7 +18,6 @@ export default function Cart() {
     const router = useRouter()
 
     const [skip, setSkip] = useState<number>(0)
-    const [price, setPrice] = useState<number>()
 
     const pending = useAppSelector(pendingSelector)
 
@@ -50,25 +49,24 @@ export default function Cart() {
         router.push(`/${name}`)
     }
 
-    const handleCart = ({_id, }: any) => {
-        const currentCartItem = cart.find(obj => obj.productId === _id)       
-        if (session) {
-            if (currentCartItem) {
-                dispatch(removeFromCartPost(currentCartItem))
-            } else {
-                dispatch(addToCartPost({productId: _id, count: 1}))
-            }
-        } else {
-            if (currentCartItem) {
-                dispatch(removeFromCart(currentCartItem.productId))
-            } else {
-                dispatch(addToCart({productId: _id, count: 1}))
-            }
-        }
-    }
+    // const handleCart = ({_id, }: any) => {
+    //     const currentCartItem = cart.find(obj => obj.productId === _id)       
+    //     if (session) {
+    //         if (currentCartItem) {
+    //             dispatch(removeFromCartPost(currentCartItem))
+    //         } else {
+    //             dispatch(addToCartPost({productId: _id, count: 1}))
+    //         }
+    //     } else {
+    //         if (currentCartItem) {
+    //             dispatch(removeFromCart(currentCartItem.productId))
+    //         } else {
+    //             dispatch(addToCart({productId: _id, count: 1}))
+    //         }
+    //     }
+    // }
 
     const handleFavorites = ({_id, }: any) => {
-        
         const currentFavoritesItem = favorites.find(obj => obj.productId === _id)       
         if (session) {
             if (currentFavoritesItem) {
@@ -92,33 +90,82 @@ export default function Cart() {
         router.push(`/catalog/${link}`)
     }
 
+    const [price, setPrice] = useState<number>(0)
+
+    useEffect(() => {
+        if (items) {
+            const price: number = items?.reduce((acc, item) => {
+                for (const cartItem of cart) {
+                    if (cartItem.productId === item._id) {
+                        if (item.price) {
+                            return acc + item.price * cartItem.count
+                        }
+                    }
+                }
+                return acc
+            }, 0)
+            setPrice(price)
+        }
+    }, [items, cart])
+    
+    const changeCount = (newCart: CartDBItemInterface) => {
+        if (session) {
+            dispatch(changeCartCountPost(newCart))
+        } else {
+            dispatch(changeCartCount(newCart))
+        }
+
+    }
+
     const order = (style: string) => (
         <div className={[styles.orderWrapper, style].join(' ')}>
             <div className={styles.order}>
                 <h1 className={styles.orderTitle}>Ваша корзина</h1>
                 <div className={styles.orderContent}>
-                    {/* <div className={styles.count}>{`Количество товаров • ${cartInfo?.count}`}</div>
-                    <div className={styles.price}>{`${cartInfo?.price} ₽`}</div> */}
+                    {/* <div className={styles.count}>{`Количество товаров • ${cartInfo?.count}`}</div> */}
+                    <div className={styles.price}>{`${price.toString().split('').reverse().join('').match(/.{1,3}/g)?.join(' ').split('').reverse().join('')} ₽`}</div>
                 </div>
                 <button className={styles.orderBtn}>Перейти к оформлению</button>
             </div>
         </div>
     )
 
+    const showMore = () => {
+        if (items) {
+            const ids = cart.map((obj: CartDBItemInterface) => obj.productId)
+            dispatch(getMoreCartItems({skip: skip+10, ids}))
+            setSkip(prev => prev + 10)
+        }
+    }
+
     return (
         <div className={[styles.wrapper, 'indents'].join(' ')}>
             {order(styles.less)}
-            <div className={styles.items}>{
-                items?.map((item: PlantInterface, idx) => {
-                    const cartExistance = cart.some((obj: CartItemInterface) => obj.productId === item._id)
-                    const favoriteExistance = favorites.some((obj: FavoritesItemInterface) => obj.productId === item._id)
-                    return (
-                        <li key={idx}>
-                            <PlantCartItem item={item} profile={moveToProfile} handleCart={handleCart} inCart={cartExistance} handleFavorite={handleFavorites} inFavorite={favoriteExistance} linkTo={linkTo}/>
-                        </li>
-                    )
-                })
-            }</div>
+            <div className={styles.container}>
+                <div className={styles.items}>{
+                    items?.map((item: PlantInterface, idx) => {
+                        // const cartExistance = cart.some((obj: CartItemInterface) => obj.productId === item._id)
+                        const cartItem = cart.find((obj: CartItemInterface) => obj.productId === item._id)
+                        const favoriteExistance = favorites.some((obj: FavoritesItemInterface) => obj.productId === item._id)
+                        return (
+                            cartItem && <li key={idx}>
+                                <PlantCartItem
+                                    item={item}
+                                    cartItem={cartItem}
+                                    changeCartCount={changeCount}
+                                    profile={moveToProfile}
+                                    inCart={!!cartItem}
+                                    handleFavorite={handleFavorites}
+                                    inFavorite={favoriteExistance}
+                                    linkTo={linkTo}
+                                    session={session}
+                                />
+                            </li>
+                        )
+                    })
+                }</div>
+                {items && cart && items.length < cart.length && skip + 10 <= items.length && <button className={styles.moreBtn} onClick={() => showMore()}>Загрузить еще</button>}
+            </div>
             {order(styles.more)}
         </div>
     )

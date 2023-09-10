@@ -1,4 +1,4 @@
-import { CartItemInterface } from "@/types/cart";
+import { CartDBItemInterface, CartItemInterface } from "@/types/cart";
 
 export default class CartService {
     static async add(cartInfo: CartItemInterface) {
@@ -15,6 +15,15 @@ export default class CartService {
             headers: {"Content-Type": "application/json"},
             method: 'DELETE',
             body: JSON.stringify(cartId)
+        })
+        return await response.json()
+    }
+
+    static async count(data: CartDBItemInterface) {
+        const response = await fetch('/api/cart', {
+            headers: {"Content-Type": "application/json"},
+            method: 'PATCH',
+            body: JSON.stringify(data)
         })
         return await response.json()
     }

@@ -4,6 +4,7 @@
     margin-top: 30px;
     display: flex;
     justify-content: space-between;
+    margin-bottom: 40px;
 
     @include tablets850 {
         display: block;
@@ -122,12 +123,47 @@
 
 .items {
     flex: 1;
-    margin-right: 20px;
     display: flex;
     flex-direction: column;
     row-gap: 20px;
 
+    
+}
+
+.container {
+    flex: 1;
+    margin-right: 20px;
+
     @include tablets850 {
         margin-right: 0;
+    }
+}
+
+.moreBtn {
+    all: unset;
+    width: 100%;
+    height: 30px;
+    border-radius: 15px;
+    box-sizing: border-box;
+    padding-bottom: 1px;
+    cursor: pointer;
+    color: $main;
+
+    margin-top: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: 700;
+    font-size: $smallFont;
+
+    border: .5px solid $main2;
+
+    transition: background-color .3s;
+    background-color: $main2;
+
+    &:hover {
+        background-color: white;
     }
 }

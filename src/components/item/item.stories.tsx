@@ -5,6 +5,7 @@ import '@/app/globals.scss'
 import {useState} from 'react'
 
 import {PlantCatalogItemTile, PlantCatalogItemHorizon, PlantCompanyItemTile, PlantCompanyItemHorizon, PlantCartItem} from "."
+import { CartDBItemInterface } from "@/types/cart";
 
 const meta: Meta<typeof PlantCatalogItemTile> = {
     title: 'Item',
@@ -66,8 +67,23 @@ export const companyItemHorizon = () => {
 export const cartItem = () => {
     const [inCart, setInCart] = useState(false)
     const [isFavirite, setFavorite] = useState(false)
+    const [cartItem, setCartItem] = useState<CartDBItemInterface>({cartId: '1', productId: '2', count: 1})
+
+    const changeCartCount = ({cartId, count}: CartDBItemInterface) => {
+        setCartItem(prev => ({...prev, count}))
+    }
 
     return (
-        <PlantCartItem item={item} profile={() => null} handleCart={(item: any) => setInCart(prev => !prev)} inCart={inCart} handleFavorite={(item: any) => setFavorite(prev => !prev)} inFavorite={isFavirite} linkTo={false}/>
+        <PlantCartItem
+            item={item}
+            cartItem={cartItem}
+            changeCartCount={changeCartCount}
+            profile={() => null}
+            handleCart={(item: any) => setInCart(prev => !prev)}
+            inCart={inCart}
+            handleFavorite={(item: any) => setFavorite(prev => !prev)}
+            inFavorite={isFavirite}
+            linkTo={false}
+        />
     )
 }
