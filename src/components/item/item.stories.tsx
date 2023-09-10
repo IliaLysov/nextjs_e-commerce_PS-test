@@ -64,26 +64,26 @@ export const companyItemHorizon = () => {
     )
 }
 
-export const cartItem = () => {
-    const [inCart, setInCart] = useState(false)
-    const [isFavirite, setFavorite] = useState(false)
-    const [cartItem, setCartItem] = useState<CartDBItemInterface>({cartId: '1', productId: '2', count: 1})
+// export const cartItem = () => {
+//     const [inCart, setInCart] = useState(false)
+//     const [isFavirite, setFavorite] = useState(false)
+//     const [cartItem, setCartItem] = useState<CartDBItemInterface>({cartId: '1', productId: '2', count: 1})
 
-    const changeCartCount = ({cartId, count}: CartDBItemInterface) => {
-        setCartItem(prev => ({...prev, count}))
-    }
+//     const changeCartCount = ({cartId, count}: CartDBItemInterface) => {
+//         setCartItem(prev => ({...prev, count}))
+//     }
 
-    return (
-        <PlantCartItem
-            item={item}
-            cartItem={cartItem}
-            changeCartCount={changeCartCount}
-            profile={() => null}
-            handleCart={(item: any) => setInCart(prev => !prev)}
-            inCart={inCart}
-            handleFavorite={(item: any) => setFavorite(prev => !prev)}
-            inFavorite={isFavirite}
-            linkTo={false}
-        />
-    )
-}
+//     return (
+//         <PlantCartItem
+//             item={item}
+//             cartItem={cartItem}
+//             changeCartCount={changeCartCount}
+//             profile={() => null}
+//             handleCart={(item: any) => setInCart(prev => !prev)}
+//             inCart={inCart}
+//             handleFavorite={(item: any) => setFavorite(prev => !prev)}
+//             inFavorite={isFavirite}
+//             linkTo={false}
+//         />
+//     )
+// }
