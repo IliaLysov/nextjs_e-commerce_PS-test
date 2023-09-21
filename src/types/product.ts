@@ -26,7 +26,7 @@ export interface PlantInterface {
     name: string;
     latinName: string;
     description?: string;
-    price?: number;
+    price: number;
     quantity?: number;
     onSale?: boolean;
     rootPacking?: string;

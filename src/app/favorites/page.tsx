@@ -65,7 +65,7 @@ export default function Favorites() {
             if (currentCartItem) {
                 dispatch(removeFromCart(currentCartItem.productId))
             } else {
-                dispatch(addToCart({productId: _id, count: 1}))
+                dispatch(addToCart({productId: _id, count: 1, cartId: ''}))
             }
         }
     }

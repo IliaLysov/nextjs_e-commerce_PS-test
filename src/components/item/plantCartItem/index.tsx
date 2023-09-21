@@ -34,7 +34,7 @@ export default function PlantCartItem({item, profile, inCart, handleFavorite, in
     useEffect(() => {
         setCount(cartItem.count)
         setPrice(item.price * cartItem.count)
-    }, [])
+    }, [cartItem])
 
     useEffect(() => {
         if (!isTyping) {

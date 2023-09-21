@@ -103,8 +103,10 @@ export default function Catalog() {
         } else {
             if (currentCartItem) {
                 dispatch(removeFromCart(currentCartItem.productId))
+                localStorage.setItem('localCart', JSON.stringify(cart.filter(obj => obj.productId !== currentCartItem.productId)))
             } else {
-                dispatch(addToCart({productId: _id, count: 1}))
+                dispatch(addToCart({productId: _id, count: 1, cartId: ''}))
+                localStorage.setItem('localCart', JSON.stringify([...cart, {productId: _id, count: 1}]))
             }
         }
     }
@@ -120,11 +122,15 @@ export default function Catalog() {
         } else {
             if (currentFavoritesItem) {
                 dispatch(removeFromFavorites(currentFavoritesItem.productId))
+                localStorage.setItem('localFavorites', JSON.stringify(favorites.filter(obj => obj.productId !== currentFavoritesItem.productId)))
             } else {
                 dispatch(addToFavorites({productId: _id}))
+                localStorage.setItem('localFavorites', JSON.stringify([...favorites, {productId: _id}]))
             }
         }
     }
+
+    //-----------------------------------------------------
 
     const [horizon, setHorizon] = useState(true)
 

@@ -28,7 +28,14 @@ export default class CartService {
         return await response.json()
     }
 
-    static async update(cartInfo: {cartId: string, count: number}) {
-
+    static async getOrder() {
+        const response = await fetch('/api/cart/order', {
+            method: 'POST'
+        })
+        return await response.json()
     }
+
+    // static async update(cartInfo: {cartId: string, count: number}) {
+
+    // }
 }

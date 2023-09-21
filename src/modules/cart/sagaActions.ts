@@ -8,3 +8,5 @@ export const changeCartCountPost = createAction<CartDBItemInterface>('CHANGE_CAR
 
 export const getCartItems = createAction<{skip: number, ids: string[]}>('GET_CART_ITEMS')
 export const getMoreCartItems = createAction<{skip: number, ids: string[]}>('GET_MORE_CART_ITEMS')
+
+export const getOrderData = createAction('GET_ORDER_DATA')

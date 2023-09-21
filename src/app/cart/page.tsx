@@ -18,9 +18,9 @@ export default function Cart() {
     const router = useRouter()
 
     const [skip, setSkip] = useState<number>(0)
-
+    
     const pending = useAppSelector(pendingSelector)
-
+    
     const cart: CartDBItemInterface[] = useAppSelector(cartSelector)
     const favorites: FavoritesItemInterface[] = useAppSelector(favoritesSelector)
     
@@ -48,23 +48,6 @@ export default function Cart() {
     const moveToProfile = (name: string) => {
         router.push(`/${name}`)
     }
-
-    // const handleCart = ({_id, }: any) => {
-    //     const currentCartItem = cart.find(obj => obj.productId === _id)       
-    //     if (session) {
-    //         if (currentCartItem) {
-    //             dispatch(removeFromCartPost(currentCartItem))
-    //         } else {
-    //             dispatch(addToCartPost({productId: _id, count: 1}))
-    //         }
-    //     } else {
-    //         if (currentCartItem) {
-    //             dispatch(removeFromCart(currentCartItem.productId))
-    //         } else {
-    //             dispatch(addToCart({productId: _id, count: 1}))
-    //         }
-    //     }
-    // }
 
     const handleFavorites = ({_id, }: any) => {
         const currentFavoritesItem = favorites.find(obj => obj.productId === _id)       
@@ -113,6 +96,12 @@ export default function Cart() {
             dispatch(changeCartCountPost(newCart))
         } else {
             dispatch(changeCartCount(newCart))
+            localStorage.setItem('localCart', JSON.stringify(cart.map((obj: CartDBItemInterface) => {
+                if (obj.productId === newCart.productId) {
+                    return newCart
+                }
+                return obj
+            })))
         }
 
     }
@@ -125,7 +114,7 @@ export default function Cart() {
                     {/* <div className={styles.count}>{`Количество товаров • ${cartInfo?.count}`}</div> */}
                     <div className={styles.price}>{`${price.toString().split('').reverse().join('').match(/.{1,3}/g)?.join(' ').split('').reverse().join('')} ₽`}</div>
                 </div>
-                <button className={styles.orderBtn}>Перейти к оформлению</button>
+                <button className={styles.orderBtn} onClick={() => router.push('/cart/order')}>Перейти к оформлению</button>
             </div>
         </div>
     )

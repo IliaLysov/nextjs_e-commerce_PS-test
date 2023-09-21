@@ -10,7 +10,7 @@ import PlantsService from '@/services/plants'
 
 function* addToFavoritesPostSaga(action: ReturnType<typeof addToFavoritesPost>): Generator {
     try {
-        console.log(action)
+        process.env.NODE_ENV === 'development' && console.log(action)
         const productId: string = action.payload
         const response: any = yield call(FavoritesService.add, productId)
         const newCartItem: FavoritesDBItemInterface = response
@@ -22,7 +22,7 @@ function* addToFavoritesPostSaga(action: ReturnType<typeof addToFavoritesPost>):
 
 function* removeFromFavoritesPostSaga(action: ReturnType<typeof removeFromFavoritesPost>): Generator {
     try {
-        console.log(action)
+        process.env.NODE_ENV === 'development' && console.log(action)
         const {favoriteId, productId} = action.payload
         if (favoriteId) {
             yield call(FavoritesService.remove, favoriteId)
@@ -36,7 +36,7 @@ function* removeFromFavoritesPostSaga(action: ReturnType<typeof removeFromFavori
 
 function* getFavoritesItemsSaga(action: ReturnType<typeof getFavoritesItems>): Generator {
     try {
-        console.log(action)
+        process.env.NODE_ENV === 'development' && console.log(action)
         const {skip, ids}: {skip: number, ids: string[]} = action.payload
         const products: any = yield call(PlantsService.getSome, {skip, ids})
         yield put(setFavoritesItems(products as PlantInterface[]))

@@ -1,7 +1,7 @@
 import {createReducer, combineReducers} from '@reduxjs/toolkit'
-import { addToCart, changeCartCount, removeFromCart, setCart, setCartItems, setMoreCartItems } from './actions'
+import { addToCart, changeCartCount, removeFromCart, setCart, setCartItems, setMoreCartItems, setOrderItems } from './actions'
 import { RootState } from '@/app/store'
-import { CartDBItemInterface, CartInfoInterface } from '@/types/cart'
+import { CartDBItemInterface, CartInfoInterface, OrderItemInterface } from '@/types/cart'
 import { PlantInterface } from '@/types/product'
 
 const cart = createReducer<CartDBItemInterface[]>([], (builder) => {
@@ -10,14 +10,13 @@ const cart = createReducer<CartDBItemInterface[]>([], (builder) => {
         .addCase(addToCart, (state, {payload}) => {state.push(payload)})
         .addCase(removeFromCart, (state, {payload}) => {return state.filter((obj) => obj.productId !== payload)})
         .addCase(changeCartCount, (state, {payload}) => {
-            state.map((obj) => {
-                if (obj.cartId === payload.cartId) {
-                    obj.count = payload.count
-                    return obj
+            return state.map((obj) => {
+                if (obj.productId === payload.productId) {
+                    return payload
                 }
                 return obj
             })
-            return state
+            
         }            
         )
         .addDefaultCase((state) => state)
@@ -30,15 +29,23 @@ const cartItems = createReducer<PlantInterface[] | null>(null, (builder) => {
         .addCase(setMoreCartItems, (state, {payload}) => state && [...state, ...payload])
 })
 
+const orderItems = createReducer<OrderItemInterface[]>([], (builder) => {
+    builder
+        .addCase(setOrderItems, (state, {payload}) => payload)
+})
+
 export default combineReducers({
     cart,
     cartItems,
+    orderItems,
 })
 
 const cartSelector = (state: RootState) => state.rootReducer.cart.cart
 const cartItemsSelector = (state: RootState) => state.rootReducer.cart.cartItems
+const orderItemsSelector = (state: RootState) => state.rootReducer.cart.orderItems
 
 export {
     cartSelector,
     cartItemsSelector,
+    orderItemsSelector,
 }

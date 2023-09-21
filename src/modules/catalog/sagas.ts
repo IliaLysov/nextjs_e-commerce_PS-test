@@ -6,7 +6,7 @@ import { FiltersInterface } from '@/types/filter'
 
 function* getCatalogProductsSaga(action: ReturnType<typeof getCatalogProducts>): Generator {
     try {
-        console.log(action)
+        process.env.NODE_ENV === 'development' && console.log(action)
         const response: any = yield call(CatalogService.getAll, action.payload)
         yield put(setCatalogItems(response.products as PlantInterface[]))
         yield put(setCatalogFilters(response.filters as FiltersInterface))
@@ -18,7 +18,7 @@ function* getCatalogProductsSaga(action: ReturnType<typeof getCatalogProducts>):
 
 function* getMoreCatalogProductsSaga(action: ReturnType<typeof getMoreCatalogProducts>): Generator {
     try {
-        console.log(action)
+        process.env.NODE_ENV === 'development' && console.log(action)
         const response: any = yield call(CatalogService.getAll, action.payload)
         yield put(setMoreCatalogItems(response.products as PlantInterface[]))
     } catch(e: any) {
