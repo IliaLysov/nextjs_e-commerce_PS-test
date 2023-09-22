@@ -35,6 +35,20 @@ export default class CartService {
         return await response.json()
     }
 
+    static async sendOrder(data: {
+        address: string | null,
+        phone: string | null,
+        whatsapp: string | null,
+        telegram: string | null
+    }) {
+        const response = await fetch('/api/cart/order', {
+            headers: {"Content-Type": "application/json"},
+            method: 'PUT',
+            body: JSON.stringify(data)
+        })
+        return await response.json()
+    }
+
     // static async update(cartInfo: {cartId: string, count: number}) {
 
     // }

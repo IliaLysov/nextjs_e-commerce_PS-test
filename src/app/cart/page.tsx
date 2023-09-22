@@ -114,7 +114,7 @@ export default function Cart() {
                     {/* <div className={styles.count}>{`Количество товаров • ${cartInfo?.count}`}</div> */}
                     <div className={styles.price}>{`${price.toString().split('').reverse().join('').match(/.{1,3}/g)?.join(' ').split('').reverse().join('')} ₽`}</div>
                 </div>
-                <button className={styles.orderBtn} onClick={() => router.push('/cart/order')}>Перейти к оформлению</button>
+                <button className={styles.orderBtn} onClick={() => cart.length > 0 && router.push('/cart/order')}>Перейти к оформлению</button>
             </div>
         </div>
     )

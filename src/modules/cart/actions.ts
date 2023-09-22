@@ -11,3 +11,4 @@ export const setCartItems = createAction<PlantInterface[]>('SET_CART_ITEMS')
 export const setMoreCartItems = createAction<PlantInterface[]>('SET_MORE_CART_ITEMS')
 
 export const setOrderItems = createAction<OrderItemInterface[]>('SET_ORDER_ITEMS')
+export const setOrderStatus = createAction<string>('SET_ORDER_STATUS')

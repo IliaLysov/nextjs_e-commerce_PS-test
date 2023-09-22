@@ -1,7 +1,7 @@
 @import '@/app/main';
 
 .wrapper {
-    margin-top: 40px;
+    margin: 40px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -13,6 +13,11 @@
     margin-bottom: 20px;
 }
 
+.tables {
+    width: 100%;
+    margin-bottom: 40px;
+}
+
 .tableWrapper {
     width: 100%;
     margin-bottom: 20px;
@@ -20,6 +25,10 @@
     background-color: $lightWhiteTransparent;
     box-sizing: border-box;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+
+    &:last-child {
+        margin-bottom: 0;
+    }
 }
 
 .tableTitle {
@@ -156,12 +165,17 @@
     }
 }
 
-.agreement {
-    margin-top: 20px;
+.contactDescription {
     font-size: $smallFont;
     font-weight: 300;
     text-align: center;
-    padding: 0 60px;
+    width: 100%;
+    padding: 0 20px;
+    margin-bottom: 20px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
 
     @include phones600 {
         padding: 0;
@@ -189,13 +203,56 @@
         }
     }
 
-    width: 300px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+
+//--------------------------------------
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 600px;
 
     @include tablets850 {
         width: 100%;
     }
+}
 
-    // @include phones600 {
-    //     width: 100%;
-    // }
+.formTitle {
+    margin-bottom: 10px;
+}
+
+.formContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.formInputHorizon {
+    width: 100%;
+    display: flex;
+    margin-bottom: 20px;
+
+    & div {
+        margin-right: 20px;
+        &:last-child {
+            margin-right: 0;
+        }
+        @include phones600 {
+            margin-right: 0;
+            margin-bottom: 20px;
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    @include phones600 {
+        flex-direction: column;
+    }
 }

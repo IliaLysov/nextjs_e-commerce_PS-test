@@ -10,3 +10,10 @@ export const getCartItems = createAction<{skip: number, ids: string[]}>('GET_CAR
 export const getMoreCartItems = createAction<{skip: number, ids: string[]}>('GET_MORE_CART_ITEMS')
 
 export const getOrderData = createAction('GET_ORDER_DATA')
+
+export const sendOrder = createAction<{
+    address: string | null,
+    phone: string | null,
+    whatsapp: string | null,
+    telegram: string | null
+}>('SEND_ORDER')

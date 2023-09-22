@@ -1,7 +1,7 @@
 import {call, takeEvery, put, select} from 'redux-saga/effects'
-import { addToCartPost, removeFromCartPost, getCartItems, changeCartCountPost, getMoreCartItems, getOrderData } from './sagaActions'
+import { addToCartPost, removeFromCartPost, getCartItems, changeCartCountPost, getMoreCartItems, getOrderData, sendOrder } from './sagaActions'
 import { CartDBItemInterface, CartInfoInterface, CartItemInterface, OrderItemInterface } from '@/types/cart'
-import { addToCart, changeCartCount, removeFromCart, setCartItems, setMoreCartItems, setOrderItems } from './actions'
+import { addToCart, changeCartCount, removeFromCart, setCart, setCartItems, setMoreCartItems, setOrderItems, setOrderStatus } from './actions'
 import CartService from '@/services/cart'
 import { PlantInterface, PlantOwnerTypeEnum } from '@/types/product'
 import { cartProductsGet, deleteProduct, filtersSelector, setAppliedFilters } from '..'
@@ -74,6 +74,24 @@ function* getOrderDataSaga(action: ReturnType<typeof getOrderData>): Generator {
     }
 }
 
+function* sendOrderSaga(action: ReturnType<typeof getOrderData>): Generator {
+    try {
+        process.env.NODE_ENV === 'development' && console.log(action)
+        const data = action.payload
+        yield put(setOrderStatus('pending'))
+        const response: any = yield call(CartService.sendOrder, data as any)
+        if (response.message = 'success') {
+            yield put(setOrderItems([]))
+            yield put(setCart([]))
+            yield put(setCartItems([]))
+            yield put(setOrderStatus('success'))
+        }
+    } catch(e: any) {
+        yield put(setOrderStatus('error'))
+        console.log(e)
+    }
+}
+
 
 export function* cartSaga() {
     yield takeEvery(addToCartPost.type, addToCartPostSaga)
@@ -82,4 +100,5 @@ export function* cartSaga() {
     yield takeEvery(getCartItems.type, getCartItemsSaga)
     yield takeEvery(getMoreCartItems.type, getMoreCartItemsSaga)
     yield takeEvery(getOrderData.type, getOrderDataSaga)
+    yield takeEvery(sendOrder.type, sendOrderSaga)
 }

@@ -1,5 +1,5 @@
 import {createReducer, combineReducers} from '@reduxjs/toolkit'
-import { addToCart, changeCartCount, removeFromCart, setCart, setCartItems, setMoreCartItems, setOrderItems } from './actions'
+import { addToCart, changeCartCount, removeFromCart, setCart, setCartItems, setMoreCartItems, setOrderItems, setOrderStatus } from './actions'
 import { RootState } from '@/app/store'
 import { CartDBItemInterface, CartInfoInterface, OrderItemInterface } from '@/types/cart'
 import { PlantInterface } from '@/types/product'
@@ -34,18 +34,26 @@ const orderItems = createReducer<OrderItemInterface[]>([], (builder) => {
         .addCase(setOrderItems, (state, {payload}) => payload)
 })
 
+const orderStatus = createReducer<string>('not started', (builder) => {
+    builder
+        .addCase(setOrderStatus, (state, {payload}) => payload)
+})
+
 export default combineReducers({
     cart,
     cartItems,
     orderItems,
+    orderStatus,
 })
 
 const cartSelector = (state: RootState) => state.rootReducer.cart.cart
 const cartItemsSelector = (state: RootState) => state.rootReducer.cart.cartItems
 const orderItemsSelector = (state: RootState) => state.rootReducer.cart.orderItems
+const orderStatusSelector = (state: RootState) => state.rootReducer.cart.orderStatus
 
 export {
     cartSelector,
     cartItemsSelector,
     orderItemsSelector,
+    orderStatusSelector,
 }
