@@ -7,10 +7,16 @@ import { Types } from "mongoose"
 import PlantSchema from '@/schemas/plant'
 import OrderSchema from '@/schemas/order'
 import CartSchema from '@/schemas/cart'
+import TChatSchema from '@/schemas/tchat'
 import dbConnect from "@/lib/dbConnect"
 import { CartDBItemInterface, OrderItemInterface } from '@/types/cart'
 import OrderItemDto from '@/dtos/order-dto'
 import { OrderInterface } from '@/types/order'
+
+import TelegramBot from 'node-telegram-bot-api';
+
+
+const bot = new TelegramBot('6679447758:AAGWzB_8O_IvTOSMbPSXAlCakqPXlaQ4-X0', { polling: false });
 
 export async function POST(request: Request) {
     try {
@@ -91,6 +97,28 @@ export async function PUT(request: Request) {
 
         const ids = session.cart.map((item: CartDBItemInterface) => item.cartId)
         await CartSchema.deleteMany({_id: {$in: ids}})
+
+        //----------------------------------------------
+
+        const companiesIds = orders.map((item: OrderInterface) => item.companyId)
+        const tchats = await TChatSchema.find({companyId: {$in: companiesIds}})
+
+        tchats.forEach(async (tchat: any) => {
+            if (orders.filter(({companyId}) => companyId.toString() === tchat.companyId.toString()).length === 1) {
+                const message = orders.reduce((acc: string, item: OrderInterface) => {
+                    if (item.companyId.toString() === tchat.companyId.toString()) {
+                        const products = item.products.reduce((acc: string, item) => {
+                            return acc + `${item.name} (${item.count}) - ${item.price} руб.\n`
+                        }, '')
+                        return acc + `От: ${session.user.name}\nEmail: ${session.user.email}\nАдрес: ${item.address}\nТелефон: ${item.phone}\nWhatsapp: ${item.whatsapp}\nTelegram: ${item.telegram}\n\n${products}\n\n`
+                    }
+                    return acc
+                }, '')
+                bot.sendMessage(tchat.chatId, message);
+            }
+        })
+
+        //----------------------------------------------
 
         return NextResponse.json({message: 'success'})
     } catch (e: any) {

@@ -6,7 +6,7 @@ import {
 
 const allowedOrigins = process.env.NODE_ENV === "production" 
     ? ['https://www.plant-store.ru', 'https://plant-store.ru', process.env.MAIN_URL]
-    : ['http://localhost:3000', 'http://192.168.100.7:3000'] //refresh second element by the current ip 'ipcofig'
+    : ['http://localhost:3000', 'http://192.168.100.7:3000', '*'] //refresh second element by the current ip 'ipcofig'
 
 
 const requireAuth: string[] = ["/admin", "/account"];
