@@ -1,10 +1,7 @@
 import { Store, configureStore } from "@reduxjs/toolkit"
 import createSagaMiddleware, {Task} from 'redux-saga'
 import rootReducer, { catalogSaga } from '@/modules'
-import { companySaga } from "@/modules"
-import { productSaga } from "@/modules"
-import { cartSaga } from "@/modules"
-import { favoritesSaga } from "@/modules"
+import { companySaga, productSaga, cartSaga, favoritesSaga, ordersSaga } from "@/modules"
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux'
 
 
@@ -35,6 +32,7 @@ sagaMiddleware.run(productSaga)
 sagaMiddleware.run(cartSaga)
 sagaMiddleware.run(favoritesSaga)
 sagaMiddleware.run(catalogSaga)
+sagaMiddleware.run(ordersSaga)
 
 
 

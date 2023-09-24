@@ -18,7 +18,8 @@ const OrderSchema = new Schema({
     whatsapp: {type: String},
     telegram: {type: String},
     email: {type: String},
-    status: {type: String, default: 'pending', required: true}
+    status: {type: String, default: 'pending', required: true},
+    createdAt: {type: Date, default: Date.now, required: true},
 })
 
 export default models.Order || model('Order', OrderSchema)

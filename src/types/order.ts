@@ -16,5 +16,15 @@ export interface OrderInterface {
     whatsapp: string,
     telegram: string,
     email: string,
-    status: string
+    status: string,
+    createdAt: Date,
 }
+
+export enum OrderStatusEnum {
+    pending = 'pending',
+    resolved = 'resolved',
+    rejected = 'rejected',
+    faked = 'faked'
+}    
+
+export type OrderStatusType = OrderStatusEnum[keyof OrderStatusEnum]

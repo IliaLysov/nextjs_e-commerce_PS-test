@@ -93,7 +93,7 @@ export default function Header() {
                         <div className={styles.navTitle}>Корзина</div>
                         <div className={[styles.notification, cart.length > 0 && styles.active].join(' ')}>{cart.length}</div>
                     </Link>
-                    <div className={[styles.navLink, session?.user.image && styles.userLink, pathname.endsWith('account') && styles.active].join(' ')} onClick={() => setMenu(prev => !prev)} ref={userRef} >
+                    <div className={[styles.navLink, session?.user.image && styles.userLink, pathname.includes('account') && styles.active].join(' ')} onClick={() => setMenu(prev => !prev)} ref={userRef} >
                         {session ?
                             session.user.image ?
                             <img src={session.user.image} alt="avatar" className={[styles.navIcon, styles.user].join(' ')}/>
@@ -107,6 +107,7 @@ export default function Header() {
                             {session ?
                                 <>
                                     <Link href='/account' className={styles.menuItem}>Аккаунт</Link>
+                                    <Link href='/account/orders' className={styles.menuItem}>Ваши заказы</Link>
                                     <Link href='/api/auth/signout' className={styles.menuItem}>Выйти</Link>
                                 </>
                                 :

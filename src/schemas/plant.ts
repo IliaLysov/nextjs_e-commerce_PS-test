@@ -51,6 +51,6 @@ const PlantSchema = new Schema({
         location: {type: String},
         key: {type: String},
     }]
-})
+}, { timestamps: true })
 
 export default models.Plant || model('Plant', PlantSchema);

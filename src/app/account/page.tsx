@@ -26,15 +26,24 @@ export default function Account() {
                     {ownCompany && <p className={[styles.itemDescripton, styles.blocked].join(' ')}>{`Ваша заявка на регистрацию питомника ${ownCompany?.name} находится на рассмотрении`}</p>}
                 </div>}
                 {ownCompany && <Link href={ownCompany.approved ? '/account/company/products' : {}} className={[styles.item, !ownCompany.approved && styles.blocked].join(' ')}>
-                    <h3 className={styles.itemTitle}>{`Растения питомника ${ownCompany.name}`}</h3>
+                    <h3 className={styles.itemTitle}>{`Растения питомника '${ownCompany.name}'`}</h3>
                     <p className={styles.itemDescripton}>Добавление, редакирование, удаление товаров</p>
                     {!ownCompany.approved && <p className={[styles.itemDescripton, styles.blocked].join(' ')}>{`Доступ откроется после завершения регистрации питомника ${ownCompany?.name}`}</p>}
                 </Link>}
                 {ownCompany && <Link href={ownCompany.approved ? '/account/company' : {}} className={[styles.item, !ownCompany.approved && styles.blocked].join(' ')}>
-                    <h3 className={styles.itemTitle}>{`Профиль питомника ${ownCompany.name}`}</h3>
+                    <h3 className={styles.itemTitle}>{`Профиль питомника '${ownCompany.name}'`}</h3>
                     <p className={styles.itemDescripton}>Редактирование информации о питомнике</p>
                     {!ownCompany.approved && <p className={[styles.itemDescripton, styles.blocked].join(' ')}>{`Доступ откроется после завершения регистрации питомника ${ownCompany?.name}`}</p>}
                 </Link>}
+                {ownCompany && <Link href={ownCompany.approved ? '/account/company/orders' : {}} className={[styles.item, !ownCompany.approved && styles.blocked].join(' ')}>
+                    <h3 className={styles.itemTitle}>{`Заказы питомника '${ownCompany.name}'`}</h3>
+                    <p className={styles.itemDescripton}>{`Обработка заказов питомника ${ownCompany.name}`}</p>
+                    {!ownCompany.approved && <p className={[styles.itemDescripton, styles.blocked].join(' ')}>{`Доступ откроется после завершения регистрации питомника ${ownCompany?.name}`}</p>}
+                </Link>}
+                <Link href={'/account/orders'} className={styles.item}>
+                    <h3 className={styles.itemTitle}>Ваши заказы</h3>
+                    <p className={styles.itemDescripton}>Просмотр и редакирование заказов</p>
+                </Link>
             </div>
             <Link href='/api/auth/signout' className={styles.signOut}>Выйти</Link>
         </div>

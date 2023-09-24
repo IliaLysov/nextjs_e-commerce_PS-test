@@ -5,6 +5,7 @@ import product from './product'
 import cart from './cart'
 import favorites from './favorites'
 import catalog from './catalog'
+import orders from './orders'
 
 export * from './company'
 export * from './ui'
@@ -12,6 +13,7 @@ export * from './product'
 export * from './cart'
 export * from './favorites'
 export * from './catalog'
+export * from './orders'
 
 export default combineReducers({
     company,
@@ -19,5 +21,6 @@ export default combineReducers({
     product,
     cart,
     favorites,
-    catalog
+    catalog,
+    orders,
 })

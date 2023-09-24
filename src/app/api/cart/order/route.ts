@@ -67,13 +67,12 @@ export async function PUT(request: Request) {
             return new OrderItemDto({...item._doc, ...cartItem})
         })
 
-        const totalPrice = products.reduce((acc: number, item: OrderItemInterface) => acc + item.price, 0)
-
         const companies = [...new Set(products.map((item: OrderItemInterface) => item.companyId))]
         
         const orders: OrderInterface[] = companies.map((companyId: string) => {
             const companyProducts = products.filter((item: OrderItemInterface) => item.companyId.toString() === companyId)
             const companyName = companyProducts[0].companyName
+            const totalPrice = companyProducts.reduce((acc: number, item: OrderItemInterface) => acc + item.price, 0)
             return new OrderSchema({
                 userId: session.user.id,
                 userName: session.user.name,
@@ -97,27 +96,29 @@ export async function PUT(request: Request) {
 
         //----------------------------------------------
 
-        if (process.env.TELEGRAM_BOT_TOKEN) {
-            const bot = new TelegramBot(process.env.TELEGRAM_BOT_TOKEN || '', { polling: false });
+        //make fetch to bot server
 
-            const companiesIds = orders.map((item: OrderInterface) => item.companyId)
-            const tchats = await TChatSchema.find({companyId: {$in: companiesIds}})
+        // if (process.env.TELEGRAM_BOT_TOKEN) {
+        //     const bot = new TelegramBot(process.env.TELEGRAM_BOT_TOKEN || '', { polling: false });
+
+        //     const companiesIds = orders.map((item: OrderInterface) => item.companyId)
+        //     const tchats = await TChatSchema.find({companyId: {$in: companiesIds}})
     
-            tchats.forEach(async (tchat: any) => {
-                if (orders.filter(({companyId}) => companyId.toString() === tchat.companyId.toString()).length === 1) {
-                    const message = orders.reduce((acc: string, item: OrderInterface) => {
-                        if (item.companyId.toString() === tchat.companyId.toString()) {
-                            const products = item.products.reduce((acc: string, item) => {
-                                return acc + `${item.name} (${item.count}) - ${item.price} руб.\n`
-                            }, '')
-                            return acc + `От: ${session.user.name}\nEmail: ${session.user.email}\nАдрес: ${item.address}\nТелефон: ${item.phone}\nWhatsapp: ${item.whatsapp}\nTelegram: ${item.telegram}\n\n${products}\n\n`
-                        }
-                        return acc
-                    }, '')
-                    bot.sendMessage(tchat.chatId, message);
-                }
-            })
-        }
+        //     tchats.forEach(async (tchat: any) => {
+        //         if (orders.filter(({companyId}) => companyId.toString() === tchat.companyId.toString()).length === 1) {
+        //             const message = orders.reduce((acc: string, item: OrderInterface) => {
+        //                 if (item.companyId.toString() === tchat.companyId.toString()) {
+        //                     const products = item.products.reduce((acc: string, item) => {
+        //                         return acc + `${item.name} (${item.count}) - ${item.price} руб.\n`
+        //                     }, '')
+        //                     return acc + `От: ${session.user.name}\nEmail: ${session.user.email}\nАдрес: ${item.address}\nТелефон: ${item.phone}\nWhatsapp: ${item.whatsapp}\nTelegram: ${item.telegram}\n\n${products}\n\n`
+        //                 }
+        //                 return acc
+        //             }, '')
+        //             bot.sendMessage(tchat.chatId, message);
+        //         }
+        //     })
+        // }
 
 
         //----------------------------------------------
